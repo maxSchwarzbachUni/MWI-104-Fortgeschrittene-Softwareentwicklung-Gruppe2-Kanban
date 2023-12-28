@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "731f188a-dcae-458f-9486-cb156377cce2",
+		"name": "FSE KanbanBoard REST Anfragen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27529570"
+	},
+	"item": [
+		{
+			"name": "Hello Testrequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/hello?name=Gerd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Gerd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testrequest JSON",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/kanbanboard_management/taskstest/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kanbanboard_management",
+						"taskstest",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
