@@ -1,0 +1,4 @@
+Microservice starten (zuvor via CMD in den Pfad navigieren)
+mvn spring-boot:run
+Quelle: https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-running-your-application.html
+

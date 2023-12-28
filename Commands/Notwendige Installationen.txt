@@ -1,0 +1,19 @@
+Java SDK 17
+https://www.oracle.com/de/java/technologies/downloads/#jdk17-windows
+
+Maven 
+https://maven.apache.org/install.html
+https://maven.apache.org/download.cgi
+
+Registrierung von Umgebungsvariablen für Java und für Maven
+User
+- JAVA_HOME => C:\Program Files\Java\jdk-17
+- MAVEN_HOME => C:\Maven\apache-maven-3.9.6
+Global 
+- Path => C:\Maven\apache-maven-3.9.6
+- Path => C:\Maven\apache-maven-3.9.6
+
+H2 Datenbank
+https://www.h2database.com/html/main.html
++ Ausführung des Installationsskriptes
++ Anpassungen der application.properties auf jdbc URL, User und Passwort

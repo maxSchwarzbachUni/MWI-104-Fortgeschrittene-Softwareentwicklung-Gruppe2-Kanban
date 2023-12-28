@@ -11,15 +11,14 @@ public class HelloController {
 	public String index() {
 		return "Greetings from Spring Boot!";
 	}
-
 	
-	  @GetMapping("/hello")
-	  public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-	    return String.format("Hello %s!", name);
-	  }
-	  
-	  @GetMapping("Test")
-	  public String test() {
-		  return "das hier ist ein Test";
-	  }
+	@GetMapping("/hello")
+	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return String.format("Hello %s!", name);
+	}
+  
+	@GetMapping("Test")
+	public String test() {
+		return "das hier ist ein Test";
+	}
 }
