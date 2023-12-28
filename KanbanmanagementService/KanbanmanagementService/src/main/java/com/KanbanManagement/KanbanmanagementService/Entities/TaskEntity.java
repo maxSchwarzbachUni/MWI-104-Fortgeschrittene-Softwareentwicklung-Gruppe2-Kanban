@@ -1,7 +1,6 @@
 package com.KanbanManagement.KanbanmanagementService.Entities;
 
 import java.sql.Date;
-
 import org.springframework.data.annotation.Id;
 // Fix, damit org.springframework.data import möglich ist:
 // https://stackoverflow.com/questions/46116947/the-import-org-springframework-data-cannot-be-resolved
@@ -14,8 +13,8 @@ public class TaskEntity {
 	String description;
 	double remainingworkload;
 	Date creationdate;
-	byte tasktype;
-	int lastchange;
+	TaskType tasktype;
+	Date lastchange;
 	byte priority;
 	
 	public TaskEntity() {
@@ -23,7 +22,7 @@ public class TaskEntity {
 	}
 	
 	public TaskEntity(int id, String name, int assignedstage, String description, double remainingworkload,
-			Date creationdate, byte tasktype, int lastchange, byte priority) {
+			Date creationdate, TaskType tasktype, Date lastchange, byte priority) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -60,11 +59,11 @@ public class TaskEntity {
 		this.assignedstage = assignedstage;
 	}
 
-	public String getDescription() {
+	public String getTaskDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setTaskDescription(String description) {
 		this.description = description;
 	}
 
@@ -72,7 +71,7 @@ public class TaskEntity {
 		return remainingworkload;
 	}
 
-	public void setRemainingworkload(double remainingworkload) {
+	public void adjustRemainingworkload(double remainingworkload) {
 		this.remainingworkload = remainingworkload;
 	}
 
@@ -84,27 +83,27 @@ public class TaskEntity {
 		this.creationdate = creationdate;
 	}
 
-	public byte getTasktype() {
+	public TaskType getTasktype() {
 		return tasktype;
 	}
 
-	public void setTasktype(byte tasktype) {
+	public void setTasktype(TaskType tasktype) {
 		this.tasktype = tasktype;
 	}
 
-	public int getLastchange() {
+	public Date getLastchangeDate() {
 		return lastchange;
 	}
 
-	public void setLastchange(int lastchange) {
+	public void setLastchangeDate(Date lastchange) {
 		this.lastchange = lastchange;
 	}
 
-	public byte getPriority() {
+	public byte getTaskPriority() {
 		return priority;
 	}
 
-	public void setPriority(byte priority) {
+	public void setTaskPriority(byte priority) {
 		this.priority = priority;
 	}
 }
