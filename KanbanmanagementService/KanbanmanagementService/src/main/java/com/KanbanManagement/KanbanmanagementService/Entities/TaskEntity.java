@@ -2,9 +2,11 @@ package com.KanbanManagement.KanbanmanagementService.Entities;
 
 import java.sql.Date;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 // Fix, damit org.springframework.data import möglich ist:
 // https://stackoverflow.com/questions/46116947/the-import-org-springframework-data-cannot-be-resolved
 
+@Table (name = "TASK")
 public class TaskEntity {
 	@Id
 	int id;

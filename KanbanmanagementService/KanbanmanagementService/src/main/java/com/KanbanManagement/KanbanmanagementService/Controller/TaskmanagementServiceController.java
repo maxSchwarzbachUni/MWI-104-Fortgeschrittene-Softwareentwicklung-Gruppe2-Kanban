@@ -28,15 +28,15 @@ public class TaskmanagementServiceController {
 	}
 
 	@GetMapping("tasks")
-	public String GetAlltasks() {
+	public Task[] GetAlltasks() {
 		System.out.println("Get all Tasks");
-		return "Get all Tasks";
+		return taskmanagementApplicationService.HandleGetAllTasksRequest();
 	}
 	
 	@GetMapping("tasks/{id}")
-	public String GetTaskById(@PathVariable int id) {
+	public Task GetTaskById(@PathVariable int id) {
 		System.out.println("Get Task with id " + id);
-		return "Get Task with id " + id;
+		return taskmanagementApplicationService.HandleGetTaskById(id);
 	}
 	
 	@PostMapping("tasks")

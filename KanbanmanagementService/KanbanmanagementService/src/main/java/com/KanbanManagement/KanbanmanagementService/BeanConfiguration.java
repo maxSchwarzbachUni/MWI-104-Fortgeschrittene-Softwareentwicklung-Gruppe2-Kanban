@@ -6,14 +6,27 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskmanagementApplicationService;
+import com.KanbanManagement.KanbanmanagementService.Factories.TaskFactory;
+import com.KanbanManagement.KanbanmanagementService.Repositories.JdbcTaskEntityRepository;
+import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
 
 @Configuration
 public class BeanConfiguration {
 	
 	 @Bean
-	 TaskmanagementApplicationService taskmanagementApplicationService() {
-	        return new TaskmanagementApplicationService();
+	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository) {
+	        return new TaskmanagementApplicationService(taskRepository);
 	 }
+	 
+	 @Bean
+	 TaskRepository taskRepository(JdbcTaskEntityRepository jdbcTaskEntityRepository) {
+	        return new TaskRepository(jdbcTaskEntityRepository);
+	 }
+	 
+//	 @Bean
+//	 TaskFactory taskFactory(TaskFactory taskFactory) {
+//	        return new TaskFactory();
+//	 }
 	 
 //	 @Bean
 //	 MessageQueue messageQueue(AmqpTemplate amqpTemplate) {
