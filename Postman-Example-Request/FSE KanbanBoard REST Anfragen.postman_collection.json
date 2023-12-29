@@ -51,6 +51,47 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get All Tasks JSON",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/kanbanboard_management/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kanbanboard_management",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task JSON",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/kanbanboard_management/tasks/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kanbanboard_management",
+						"tasks",
+						"2"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
