@@ -23,7 +23,6 @@ public class TaskmanagementApplicationService {
 	}
 
 	public Task test() {
-		
 		TaskEntity t = taskRepository.findById(new TaskId(3));
 		
 		Date da = t.getLastchangeDate();
