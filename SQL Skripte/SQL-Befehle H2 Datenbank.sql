@@ -14,6 +14,7 @@ CREATE TABLE Stage (
     position int
 );
 INSERT INTO Stage (name, position) VALUES ('test', 1);
+INSERT INTO Stage (name, position) VALUES ('new', 2);
 
 CREATE TABLE Task (
     id INT AUTO_INCREMENT PRIMARY KEY,

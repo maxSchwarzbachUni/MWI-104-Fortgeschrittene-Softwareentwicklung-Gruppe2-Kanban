@@ -92,6 +92,64 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "UpdateTaskStage",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kanbanboard_management",
+						"tasks",
+						"2",
+						"stage"
+					],
+					"query": [
+						{
+							"key": "stageId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post new Stage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/kanbanboard_management/stages?name=In Testing&position=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"kanbanboard_management",
+						"stages"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "In Testing"
+						},
+						{
+							"key": "position",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
