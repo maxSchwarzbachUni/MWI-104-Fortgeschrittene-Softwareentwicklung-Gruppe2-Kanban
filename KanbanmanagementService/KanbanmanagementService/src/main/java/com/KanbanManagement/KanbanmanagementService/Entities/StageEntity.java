@@ -1,7 +1,10 @@
 package com.KanbanManagement.KanbanmanagementService.Entities;
 
-import org.springframework.data.annotation.Id;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table (name = "STAGE")
 public class StageEntity {
 	@Id
 	int id;
@@ -15,6 +18,12 @@ public class StageEntity {
 	public StageEntity(int id, String name, int position) {
 		super();
 		this.id = id;
+		this.name = name;
+		this.position = position;
+	}
+	
+	public StageEntity(String name, int position) {
+		super();
 		this.name = name;
 		this.position = position;
 	}
