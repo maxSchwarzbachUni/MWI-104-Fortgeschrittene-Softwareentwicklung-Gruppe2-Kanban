@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
@@ -59,4 +60,24 @@ public class TaskmanagementApplicationService {
 		}
 		return taskFactory.ConvertToAggregate(foundTaskEntity);
 	}
+
+	public String HandleUpdateAssignedStage(int id, int stageId) {
+		TaskEntity taskToUpdate  = taskRepository.findById(new TaskId(id));
+		try {
+			if(taskToUpdate != null) {
+				taskToUpdate.setAssignedstage(stageId);
+				boolean resultBool = taskRepository.updateTask(taskToUpdate);
+				if(resultBool) {
+					return "Update von Task erfolgreich abgeschlossen";
+				}
+			}		
+			return "Update fehlgeschlagen: Task existiert nicht bzw. das Update hat auf DB-Ebene nicht geklappt.";
+		} 
+		catch (Exception e) {
+			return "Fehler bei Update von Task! Meldung: /n" + e.getMessage();
+		}
+
+	}
+
+
 }

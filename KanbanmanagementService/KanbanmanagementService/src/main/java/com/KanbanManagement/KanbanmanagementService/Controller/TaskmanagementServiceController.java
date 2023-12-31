@@ -1,19 +1,17 @@
 package com.KanbanManagement.KanbanmanagementService.Controller;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
+import com.KanbanManagement.KanbanmanagementService.ApplicationServices.StagemanagementApplicationService;
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskmanagementApplicationService;
-import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
-import com.KanbanManagement.KanbanmanagementService.ValueObjects.StageId;
-import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
-
 
 @RestController
 @RequestMapping("/kanbanboard_management")
@@ -21,10 +19,12 @@ public class TaskmanagementServiceController {
 
 	
 	TaskmanagementApplicationService taskmanagementApplicationService;
+	StagemanagementApplicationService stagemanagementApplicationService;
 	
-	public TaskmanagementServiceController(TaskmanagementApplicationService taskmanagementApplicationService) {
+	public TaskmanagementServiceController(TaskmanagementApplicationService taskmanagementApplicationService, StagemanagementApplicationService stagemanagementApplicationService) {
 		super();
 		this.taskmanagementApplicationService = taskmanagementApplicationService;
+		this.stagemanagementApplicationService = stagemanagementApplicationService;
 	}
 
 	@GetMapping("tasks")
@@ -48,5 +48,16 @@ public class TaskmanagementServiceController {
 	@GetMapping("taskstest/{id}")
 	public Task GetTest(@PathVariable int id) {
 		return taskmanagementApplicationService.test();
+	}
+	
+	@PutMapping("tasks/{id}/stage")
+	public String UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId) {
+		return taskmanagementApplicationService.HandleUpdateAssignedStage(id, stageId);
+		
+	}
+	
+	@PostMapping("stages")
+	public Stage PostNewStage(@RequestParam String name, @RequestParam int position) {
+		return stagemanagementApplicationService.HandlePostNewStage(name, position);
 	}
 }

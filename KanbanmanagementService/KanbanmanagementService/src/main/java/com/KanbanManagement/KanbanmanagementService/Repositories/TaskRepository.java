@@ -40,7 +40,12 @@ public class TaskRepository{
             return null;
         }		
 	}
-
 	
-
+	public boolean updateTask(TaskEntity taskToUpdate) {
+		if(taskToUpdate != null && jdbcTaskEntityRepository.existsById(taskToUpdate.getId())) {
+			jdbcTaskEntityRepository.save(taskToUpdate);
+			return true;
+		}		
+		return false;
+	}
 }

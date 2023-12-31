@@ -15,7 +15,7 @@ public class TaskEntity {
 	String description;
 	double remainingworkload;
 	Date creationdate;
-	TaskType tasktype;
+	byte tasktype;
 	Date lastchange;
 	byte priority;
 	
@@ -24,7 +24,7 @@ public class TaskEntity {
 	}
 	
 	public TaskEntity(int id, String name, int assignedstage, String description, double remainingworkload,
-			Date creationdate, TaskType tasktype, Date lastchange, byte priority) {
+			Date creationdate, byte tasktype, Date lastchange, byte priority) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -85,11 +85,11 @@ public class TaskEntity {
 		this.creationdate = creationdate;
 	}
 
-	public TaskType getTasktype() {
+	public byte getTasktype() {
 		return tasktype;
 	}
 
-	public void setTasktype(TaskType tasktype) {
+	public void setTasktype(byte tasktype) {
 		this.tasktype = tasktype;
 	}
 

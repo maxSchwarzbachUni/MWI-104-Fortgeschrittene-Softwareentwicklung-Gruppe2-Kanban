@@ -1,7 +1,7 @@
 package com.KanbanManagement.KanbanmanagementService.Entities;
 
 public enum TaskType {
-	FeatureImplementation,
+	FeatureImplementation ,
 	BugFix,
 	Dokumentation,
 	Testing
