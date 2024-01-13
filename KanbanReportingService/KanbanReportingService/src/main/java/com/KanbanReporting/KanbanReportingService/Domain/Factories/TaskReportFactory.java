@@ -15,11 +15,11 @@ public class TaskReportFactory {
 		return new TaskReportEntity(taskReportId, kanbanDashboard.getTaskId(), kanbanDashboard.getStageId(), kanbanDashboard.getKanbanboardId(), kanbanDashboard.getLastChange(), kanbanDashboard.getCreationDate(), kanbanDashboard.getClosedDate());
 	}
 	
-	public TaskReport ConvertToAggregate(TaskReportEntity taskReportEntity) {
-		TaskReportId taskReportId = new TaskReportId (taskReportEntity.getId());
-		double avgLeadTime = taskReportEntity.getav
-		
-		return new KanbanDashboard(taskReportId, taskReportEntity.getKanbanboardId(), taskReportEntity.get);	
-		KanbanDashboardId id, int kanbanId, double avgLeadTime, double avgCycleTime, int oldestActiveTask
-	}
+//	public TaskReport ConvertToAggregate(TaskReportEntity taskReportEntity) {
+//		TaskReportId taskReportId = new TaskReportId (taskReportEntity.getId());
+//		double avgLeadTime = taskReportEntity.getav
+//		
+//		return new KanbanDashboard(taskReportId, taskReportEntity.getKanbanboardId(), taskReportEntity.get);	
+//		KanbanDashboardId id, int kanbanId, double avgLeadTime, double avgCycleTime, int oldestActiveTask
+//	}
 }

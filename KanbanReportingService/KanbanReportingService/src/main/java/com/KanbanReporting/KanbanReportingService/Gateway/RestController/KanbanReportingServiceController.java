@@ -5,9 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.NotificationReceiverService;
+
 @RestController
 @RequestMapping("/kanbanboard_reporting")
 public class KanbanReportingServiceController {
+	
+	public KanbanReportingServiceController() {
+		NotificationReceiverService service = new NotificationReceiverService();
+		service.ReceiveTaskChangedNotificationRabbitMq();
+	}
 	
 	@GetMapping("/")
 	public String index() {

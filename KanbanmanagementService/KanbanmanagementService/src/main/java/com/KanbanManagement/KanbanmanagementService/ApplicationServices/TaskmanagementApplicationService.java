@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
+import com.KanbanManagement.KanbanmanagementService.Aggregates.TaskReportData;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
 import com.KanbanManagement.KanbanmanagementService.Factories.TaskFactory;
@@ -68,6 +69,15 @@ public class TaskmanagementApplicationService {
 				taskToUpdate.setAssignedstage(stageId);
 				boolean resultBool = taskRepository.updateTask(taskToUpdate);
 				if(resultBool) {
+					// Nachricht an zweiten Service
+					TaskReportData messageTaskObject = new TaskReportData();
+					messageTaskObject.setTaskId(new TaskId(taskToUpdate.getId()));
+					messageTaskObject.setCreationDate(taskToUpdate.getCreationdate());
+					messageTaskObject.setLastChange(taskToUpdate.getLastchangeDate());
+					
+					TaskChangedNotificationEmitterService test = new TaskChangedNotificationEmitterService();
+					test.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
+										
 					return "Update von Task erfolgreich abgeschlossen";
 				}
 			}		

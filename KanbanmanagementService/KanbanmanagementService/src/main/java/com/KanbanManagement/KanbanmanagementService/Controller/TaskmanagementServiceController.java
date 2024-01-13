@@ -62,10 +62,10 @@ public class TaskmanagementServiceController {
 		return stagemanagementApplicationService.HandlePostNewStage(name, position);
 	}
 	
-	@PostMapping("raiseNotification")
+	@GetMapping("raiseNotification")
 	public String raiseRabbitMqNotificiation() {
 		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
-		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq();
+//		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq("Test");
 		return "Erfolg.";
 	}
 	

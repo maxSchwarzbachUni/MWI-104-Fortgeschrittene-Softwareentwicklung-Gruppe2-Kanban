@@ -6,7 +6,7 @@ import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
 
-public class Task implements ITaskReportData {
+public class Task{
 	TaskId taskId;
 	String name;
 	StageId assignedstage;
