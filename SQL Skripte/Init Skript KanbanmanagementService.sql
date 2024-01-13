@@ -10,11 +10,12 @@ INSERT INTO KanbanBoard (name) VALUES ('test');
 
 CREATE TABLE Stage (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    kanbaniId INT,
     name VARCHAR(255),
     position int
 );
-INSERT INTO Stage (name, position) VALUES ('test', 1);
-INSERT INTO Stage (name, position) VALUES ('new', 2);
+INSERT INTO Stage (kanbaniId, name, position) VALUES (1, 'test', 1);
+INSERT INTO Stage (kanbaniId, name, position) VALUES (1, 'new', 2);
 
 CREATE TABLE Task (
     id INT AUTO_INCREMENT PRIMARY KEY,
