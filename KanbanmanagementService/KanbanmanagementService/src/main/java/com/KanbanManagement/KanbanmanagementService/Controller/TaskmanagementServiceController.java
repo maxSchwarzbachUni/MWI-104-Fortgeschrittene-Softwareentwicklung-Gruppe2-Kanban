@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.StagemanagementApplicationService;
+import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskChangedNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskmanagementApplicationService;
 
 @RestController
@@ -60,4 +61,12 @@ public class TaskmanagementServiceController {
 	public Stage PostNewStage(@RequestParam String name, @RequestParam int position) {
 		return stagemanagementApplicationService.HandlePostNewStage(name, position);
 	}
+	
+	@PostMapping("raiseNotification")
+	public String raiseRabbitMqNotificiation() {
+		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
+		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq();
+		return "Erfolg.";
+	}
+	
 }

@@ -8,6 +8,7 @@ import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
 
 public class TaskFactory {
 
+	// Enum To Int/Byte Cast Referenz: https://stackoverflow.com/questions/5878952/cast-int-to-enum-in-java
 	public TaskEntity ConvertToEntity(Task task) {
 		TaskId taskId = task.getTaskId();
 		StageId assignedstage = task.getAssignedstage();
