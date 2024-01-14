@@ -1,0 +1,19 @@
+package com.KanbanManagement.KanbanmanagementService;
+
+import org.mockito.Mockito;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+
+import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
+
+@Profile("test")
+@Configuration
+public class TaskmanagementDomainServiceTestsConfiguration {
+	   @Bean
+	   @Primary
+	   public TaskRepository taskService() {
+	      return Mockito.mock(TaskRepository.class);
+	   }
+}

@@ -30,7 +30,7 @@ public class NotificationReceiverService {
                     delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
-        }
+        }	
         catch(Exception e) {
             System.out.println("Fehler: "+ e);
         }
