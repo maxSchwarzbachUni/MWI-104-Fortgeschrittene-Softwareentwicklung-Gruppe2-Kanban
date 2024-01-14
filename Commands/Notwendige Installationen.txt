@@ -17,3 +17,8 @@ H2 Datenbank
 https://www.h2database.com/html/main.html
 + Ausführung des Installationsskriptes
 + Anpassungen der application.properties auf jdbc URL, User und Passwort
+
+RabbitMQ-Server
+https://www.rabbitmq.com/download.html
+(Für die Installation wird Erlang benötigt, Meldung folgt beim Installieren zur Download Webseite)
+https://www.erlang.org/downloads
