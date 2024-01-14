@@ -7,6 +7,7 @@ import java.util.List;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.TaskReportData;
+import com.KanbanManagement.KanbanmanagementService.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
 import com.KanbanManagement.KanbanmanagementService.Factories.TaskFactory;
@@ -18,10 +19,12 @@ public class TaskmanagementApplicationService {
 	
 	private TaskRepository taskRepository;
 	private TaskFactory taskFactory;
+	private TaskmanagementDomainService taskmanagementDomainService;
 	
-	public TaskmanagementApplicationService(TaskRepository taskRepository) {
+	public TaskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService) {
 		this.taskRepository = taskRepository;
 		this.taskFactory = new TaskFactory();
+		this.taskmanagementDomainService = taskmanagementDomainService;
 	}
 
 	public Task test() {
@@ -64,30 +67,16 @@ public class TaskmanagementApplicationService {
 
 	public String HandleUpdateAssignedStage(int id, int stageId) {
 		TaskEntity taskToUpdate  = taskRepository.findById(new TaskId(id));
-		try {
-			if(taskToUpdate != null) {
-				taskToUpdate.setAssignedstage(stageId);
-				boolean resultBool = taskRepository.updateTask(taskToUpdate);
-				if(resultBool) {
-					// Nachricht an zweiten Service
-					TaskReportData messageTaskObject = new TaskReportData();
-					messageTaskObject.setTaskId(new TaskId(taskToUpdate.getId()));
-					messageTaskObject.setCreationDate(taskToUpdate.getCreationdate());
-					messageTaskObject.setLastChange(taskToUpdate.getLastchangeDate());
-					
-					TaskChangedNotificationEmitterService test = new TaskChangedNotificationEmitterService();
-					test.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
-										
-					return "Update von Task erfolgreich abgeschlossen";
-				}
-			}		
-			return "Update fehlgeschlagen: Task existiert nicht bzw. das Update hat auf DB-Ebene nicht geklappt.";
-		} 
-		catch (Exception e) {
-			return "Fehler bei Update von Task! Meldung: /n" + e.getMessage();
+		Boolean entityIsEmpty = taskmanagementDomainService.checkIfTaskEntityIsEmpty(taskToUpdate);
+		if(entityIsEmpty) {
+			return TaskManagementKonstanten.task_update_failed_no_task_for_update_found;
 		}
-
+		TaskEntity taskToSave = taskmanagementDomainService.updateAssignedStage(taskToUpdate, stageId);	
+		Boolean udpateResult = taskRepository.updateTask(taskToSave);
+		if(!udpateResult) {
+			return "Update fehlgeschlagen: Task existiert nicht bzw. das Update hat auf DB-Ebene nicht geklappt.";
+		}
+		System.out.println(taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate));
+		return "Update von Task erfolgreich abgeschlossen";
 	}
-
-
 }

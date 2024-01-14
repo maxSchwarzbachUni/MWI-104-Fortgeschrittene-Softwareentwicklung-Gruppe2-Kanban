@@ -9,7 +9,15 @@ public class TaskReportData {
     public Date creationDate;
     public Date lastChange;
     
-	public TaskId getTaskId() {
+    
+    public TaskReportData(TaskId taskId, Date creationDate, Date lastChange) {
+		super();
+		this.taskId = taskId;
+		this.creationDate = creationDate;
+		this.lastChange = lastChange;
+	}
+    
+    public TaskId getTaskId() {
 		return taskId;
 	}
 	

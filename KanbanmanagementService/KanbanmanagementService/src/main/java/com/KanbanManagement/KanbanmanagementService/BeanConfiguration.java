@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.StagemanagementApplicationService;
+import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskChangedNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskmanagementApplicationService;
+import com.KanbanManagement.KanbanmanagementService.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Factories.TaskFactory;
 import com.KanbanManagement.KanbanmanagementService.Repositories.JdbcStageEntityRepository;
 import com.KanbanManagement.KanbanmanagementService.Repositories.JdbcStagePositionExistsRepository;
@@ -18,8 +20,13 @@ import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
 public class BeanConfiguration {
 	
 	 @Bean
-	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository) {
-	        return new TaskmanagementApplicationService(taskRepository);
+	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService) {
+	        return new TaskmanagementApplicationService(taskRepository, taskmanagementDomainService);
+	 }
+	 
+	 @Bean 
+	 TaskmanagementDomainService taskmanagementDomainService() {
+		 return new TaskmanagementDomainService(new TaskChangedNotificationEmitterService());
 	 }
 	 
 	 @Bean
