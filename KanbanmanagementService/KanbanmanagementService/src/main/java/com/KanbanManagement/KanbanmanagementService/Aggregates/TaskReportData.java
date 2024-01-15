@@ -5,16 +5,17 @@ import java.sql.Date;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
 
 public class TaskReportData {
-	public TaskId taskId;
-    public Date creationDate;
-    public Date lastChange;
+	TaskId taskId;
+    Date creationDate;
+    Date lastChange;
+    int kanbanid;    
     
-    
-    public TaskReportData(TaskId taskId, Date creationDate, Date lastChange) {
+    public TaskReportData(TaskId taskId, Date creationDate, Date lastChange, int kanbanid) {
 		super();
 		this.taskId = taskId;
 		this.creationDate = creationDate;
 		this.lastChange = lastChange;
+		this.kanbanid = kanbanid;
 	}
     
     public TaskId getTaskId() {
@@ -40,6 +41,12 @@ public class TaskReportData {
 	public void setLastChange(Date lastChange) {
 		this.lastChange = lastChange;
 	}
-    
-    
+
+	public int getKanbanid() {
+		return kanbanid;
+	}
+
+	public void setKanbanid(int kanbanid) {
+		this.kanbanid = kanbanid;
+	}       
 }

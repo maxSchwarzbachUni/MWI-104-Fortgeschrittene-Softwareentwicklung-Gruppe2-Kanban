@@ -1,7 +1,5 @@
 package com.KanbanManagement.KanbanmanagementService;
 
-//import org.springframework.amqp.core.AmqpTemplate;
-//import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,8 +18,8 @@ import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
 public class BeanConfiguration {
 	
 	 @Bean
-	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService) {
-	        return new TaskmanagementApplicationService(taskRepository, taskmanagementDomainService);
+	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, StageRepository stageRepository) {
+	        return new TaskmanagementApplicationService(taskRepository, taskmanagementDomainService, stageRepository);
 	 }
 	 
 	 @Bean 
@@ -43,20 +41,4 @@ public class BeanConfiguration {
 	 StageRepository stageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
 	        return new StageRepository(jdbcStageEntityRepository, jdbcStagePositionExistsRepository);
 	 }
-	 
-//	 @Bean
-//	 TaskFactory taskFactory(TaskFactory taskFactory) {
-//	        return new TaskFactory();
-//	 }
-	 
-//	 @Bean
-//	 MessageQueue messageQueue(AmqpTemplate amqpTemplate) {
-//		 return new QueueAdapter(amqpTemplate);
-//	 }
-//	 
-//	 @Bean
-//	 public Queue myQueue() {
-//		 return new Queue(QueueAdapter.MY_QUEUE_NAME, QueueAdapter.NON_DURABLE);    
-//	 }
-	 
 }

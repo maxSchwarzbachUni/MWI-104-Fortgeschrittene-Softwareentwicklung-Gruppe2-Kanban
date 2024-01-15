@@ -22,9 +22,9 @@ public class TaskmanagementDomainService {
 		return taskToUpdate;
 	}
 	
-	public String createAndSendTaskUpdateNotification(TaskEntity taskToUpdate) {
+	public String createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid) {
 		try {
-			TaskReportData messageTaskObject = new TaskReportData(new TaskId(taskToUpdate.getId()), taskToUpdate.getCreationdate(), taskToUpdate.getLastchangeDate());			
+			TaskReportData messageTaskObject = new TaskReportData(new TaskId(taskToUpdate.getId()), taskToUpdate.getCreationdate(), taskToUpdate.getLastchangeDate(), kanbanid);			
 			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
 			return "Nachrichten verschicken hat erfolgreich geklappt";
 		} 

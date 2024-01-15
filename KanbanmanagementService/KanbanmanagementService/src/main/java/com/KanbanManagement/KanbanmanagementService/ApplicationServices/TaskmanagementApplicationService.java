@@ -8,9 +8,11 @@ import com.KanbanManagement.KanbanmanagementService.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.Aggregates.TaskReportData;
 import com.KanbanManagement.KanbanmanagementService.DomainServices.TaskmanagementDomainService;
+import com.KanbanManagement.KanbanmanagementService.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskType;
 import com.KanbanManagement.KanbanmanagementService.Factories.TaskFactory;
+import com.KanbanManagement.KanbanmanagementService.Repositories.StageRepository;
 import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
@@ -18,13 +20,15 @@ import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
 public class TaskmanagementApplicationService {
 	
 	private TaskRepository taskRepository;
+	private StageRepository stageRepository;
 	private TaskFactory taskFactory;
 	private TaskmanagementDomainService taskmanagementDomainService;
 	
-	public TaskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService) {
+	public TaskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, StageRepository stageRepository) {
 		this.taskRepository = taskRepository;
 		this.taskFactory = new TaskFactory();
 		this.taskmanagementDomainService = taskmanagementDomainService;
+		this.stageRepository = stageRepository;
 	}
 
 	public Task test() {
@@ -71,12 +75,19 @@ public class TaskmanagementApplicationService {
 		if(entityIsEmpty) {
 			return TaskManagementKonstanten.task_update_failed_no_task_for_update_found;
 		}
+		
+		StageEntity stageEntity = stageRepository.findById(new StageId(stageId));
+		if(stageEntity == null) {
+			return "Update fehlgeschlagen: Stage existiert nicht, auf die geupdated werden soll.";
+		}
+		
 		TaskEntity taskToSave = taskmanagementDomainService.updateAssignedStage(taskToUpdate, stageId);	
 		Boolean udpateResult = taskRepository.updateTask(taskToSave);
 		if(!udpateResult) {
 			return "Update fehlgeschlagen: Task existiert nicht bzw. das Update hat auf DB-Ebene nicht geklappt.";
 		}
-		System.out.println(taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate));
+		
+		System.out.println(taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate, stageEntity.getKanbanid()));
 		return "Update von Task erfolgreich abgeschlossen";
 	}
 }

@@ -17,8 +17,6 @@ import com.KanbanManagement.KanbanmanagementService.ApplicationServices.Taskmana
 @RestController
 @RequestMapping("/kanbanboard_management")
 public class TaskmanagementServiceController {
-
-	
 	TaskmanagementApplicationService taskmanagementApplicationService;
 	StagemanagementApplicationService stagemanagementApplicationService;
 	
@@ -62,9 +60,10 @@ public class TaskmanagementServiceController {
 		return stagemanagementApplicationService.HandlePostNewStage(name, position);
 	}
 	
+	//TODO entfernen
 	@GetMapping("raiseNotification")
 	public String raiseRabbitMqNotificiation() {
-		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
+//		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
 //		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq("Test");
 		return "Erfolg.";
 	}
