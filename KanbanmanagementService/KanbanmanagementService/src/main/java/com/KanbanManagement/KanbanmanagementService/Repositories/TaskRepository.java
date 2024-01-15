@@ -10,9 +10,7 @@ import com.KanbanManagement.KanbanmanagementService.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
 
-
 // Referenz: https://www.geeksforgeeks.org/spring-boot-h2-database/ 
-
 @Component
 public class TaskRepository{
 	

@@ -1,7 +1,5 @@
 package com.KanbanManagement.KanbanmanagementService.ApplicationServices;
 
-import org.springframework.boot.jackson.JsonObjectSerializer;
-
 import com.KanbanManagement.KanbanmanagementService.Aggregates.TaskReportData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;

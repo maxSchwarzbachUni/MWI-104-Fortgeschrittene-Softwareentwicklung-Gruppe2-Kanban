@@ -1,4 +1,4 @@
-package com.KanbanManagement.KanbanmanagementService;
+package com.KanbanManagement.KanbanmanagementService.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
