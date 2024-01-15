@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
 
 @Profile("test")
 @Configuration

@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskManagementKonstanten;
-import com.KanbanManagement.KanbanmanagementService.ApplicationServices.TaskmanagementApplicationService;
-import com.KanbanManagement.KanbanmanagementService.Repositories.TaskRepository;
-import com.KanbanManagement.KanbanmanagementService.ValueObjects.TaskId;
+import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
+import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskManagementKonstanten;
+import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
 
 //In Anlehnung an: https://www.tutorialspoint.com/spring_boot/spring_boot_unit_test_cases.htm
 @SpringBootTest
