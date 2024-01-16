@@ -1,5 +1,7 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.RestController;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,11 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.StageApplicationService;
-import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
 
 @RestController
@@ -27,45 +26,41 @@ public class TaskmanagementServiceController {
 	}
 
 	@GetMapping("tasks")
-	public Task[] GetAlltasks() {
+	public ResponseEntity<Object> GetAlltasks() {
 		System.out.println("Get all Tasks");
-		return taskmanagementApplicationService.HandleGetAllTasksRequest();
+		return taskmanagementApplicationService.HandleGetAllTasksRequest();;
 	}
 	
 	@GetMapping("tasks/{id}")
-	public Task GetTaskById(@PathVariable int id) {
+	public ResponseEntity<Object> GetTaskById(@PathVariable int id) {
 		System.out.println("Get Task with id " + id);
 		return taskmanagementApplicationService.HandleGetTaskById(id);
 	}
 	
+	//TODO
 	@PostMapping("tasks")
-	public String PostNewTask() {
+	public ResponseEntity<Object> PostNewTask(@RequestParam Task task) {
 		System.out.println("Post new task");
-		return "Post new task";
-	}
-	
-	@GetMapping("taskstest/{id}")
-	public Task GetTest(@PathVariable int id) {
-		return taskmanagementApplicationService.test();
+		return taskmanagementApplicationService.HandlePostNewTask(task);
 	}
 	
 	@PutMapping("tasks/{id}/stage")
-	public String UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId) {
+	public ResponseEntity<Object> UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId) {
+		System.out.println("Update Task " + id + " stage to " + stageId );
 		return taskmanagementApplicationService.HandleUpdateAssignedStage(id, stageId);
-		
 	}
 	
 	@PostMapping("stages")
-	public Stage PostNewStage(@RequestParam String name, @RequestParam int position) {
-		return stagemanagementApplicationService.HandlePostNewStage(name, position);
+	public ResponseEntity<Object> PostNewStage(@RequestParam String name, @RequestParam int position, int kanbanid) {
+		System.out.println("Post new stage with name " + name + " and position " + position + " to board " + kanbanid);
+		return stagemanagementApplicationService.HandlePostNewStage(name, position, kanbanid);
 	}
 	
-	//TODO entfernen
 	@GetMapping("raiseNotification")
-	public String raiseRabbitMqNotificiation() {
+	public ResponseEntity<Object> raiseRabbitMqNotificiation() {
 //		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
 //		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq("Test");
-		return "Erfolg.";
+		return new ResponseEntity<Object>("Erfolg.", HttpStatus.OK);
 	}
 	
 }

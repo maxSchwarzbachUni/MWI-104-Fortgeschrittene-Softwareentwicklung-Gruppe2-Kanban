@@ -6,12 +6,14 @@ public class Stage {
 	StageId stageId;
 	String name;
 	int position;
+	int kanbanid;
 	
-	public Stage(StageId stageId, String name, int position) {
+	public Stage(StageId stageId, String name, int position, int kanbanid) {
 		super();
 		this.stageId = stageId;
 		this.name = name;
 		this.position = position;
+		this.kanbanid = kanbanid;
 	}
 	
 	public StageId getId() {
@@ -31,6 +33,14 @@ public class Stage {
 		this.position = position;
 	}
 	
+	public int getKanbanid() {
+		return kanbanid;
+	}
+
+	public void setKanbanid(int kanbanid) {
+		this.kanbanid = kanbanid;
+	}
+
 	public boolean equals (Object o) {
 		Stage a = (Stage)o;
 		return (this.stageId == a.stageId);

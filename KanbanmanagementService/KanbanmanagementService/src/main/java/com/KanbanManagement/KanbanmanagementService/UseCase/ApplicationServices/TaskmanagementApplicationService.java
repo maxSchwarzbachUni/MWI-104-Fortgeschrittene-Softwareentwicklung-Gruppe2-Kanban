@@ -1,17 +1,12 @@
 package com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
-import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.TaskReportData;
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.TaskEntity;
-import com.KanbanManagement.KanbanmanagementService.Domain.Entities.TaskType;
-import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.StageRepository;
@@ -21,73 +16,45 @@ public class TaskmanagementApplicationService {
 	
 	private TaskRepository taskRepository;
 	private StageRepository stageRepository;
-	private TaskFactory taskFactory;
 	private TaskmanagementDomainService taskmanagementDomainService;
 	
 	public TaskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, StageRepository stageRepository) {
 		this.taskRepository = taskRepository;
-		this.taskFactory = new TaskFactory();
 		this.taskmanagementDomainService = taskmanagementDomainService;
 		this.stageRepository = stageRepository;
 	}
 
-	public Task test() {
-		TaskEntity t = taskRepository.findById(new TaskId(3));
-		
-		Date da = t.getLastchangeDate();
-		
-		TaskId taskId = new TaskId(1);
-		StageId assignedstage = new StageId(2);
-		double d = 0.0;
-		Date now = new Date(System.currentTimeMillis()); // https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java
-		TaskType bugfix = TaskType.BugFix;
-		
-		Task task = new Task(taskId, "test", assignedstage, "das ist ein test task", d, 
-				now, bugfix, now, (byte) 3);
-		//System.out.println(task);
-		return task;
-	}
-
-	public Task[] HandleGetAllTasksRequest() {
-		List<Task> taskList = new ArrayList<Task>();
-		
+	public ResponseEntity<Object> HandleGetAllTasksRequest() {
 		Iterable<TaskEntity> taskEntityList = taskRepository.getAllTasks();
-		
-		for (TaskEntity taskEntity : taskEntityList) {
-			var convertedTask = taskFactory.ConvertToAggregate(taskEntity);
-			taskList.add(convertedTask);
-		}
-		
-		return (Task[]) taskList.toArray(new Task[taskList.size()]);
+		return taskmanagementDomainService.ConvertTaskListToTaskEntityList(taskEntityList);	
 	}
 
-	public Task HandleGetTaskById(int taskId) {
+	public ResponseEntity<Object> HandleGetTaskById(int taskId) {
 		TaskEntity foundTaskEntity = taskRepository.findById(new TaskId(taskId));
 		if(foundTaskEntity == null) {
-			return null;
+			new ResponseEntity<Object> ("Kein Task gefunden für die id: " + taskId, HttpStatus.OK);
 		}
-		return taskFactory.ConvertToAggregate(foundTaskEntity);
+		return new ResponseEntity<Object> (taskmanagementDomainService.ConvertTaskToAggregate(foundTaskEntity), HttpStatus.OK);
 	}
 
-	public String HandleUpdateAssignedStage(int id, int stageId) {
+	public ResponseEntity<Object> HandleUpdateAssignedStage(int id, int stageId) {
 		TaskEntity taskToUpdate  = taskRepository.findById(new TaskId(id));
-		Boolean entityIsEmpty = taskmanagementDomainService.checkIfTaskEntityIsEmpty(taskToUpdate);
-		if(entityIsEmpty) {
-			return TaskManagementKonstanten.task_update_failed_no_task_for_update_found;
-		}
-		
+		int oldStageId = taskToUpdate.getAssignedstage();
 		StageEntity stageEntity = stageRepository.findById(new StageId(stageId));
-		if(stageEntity == null) {
-			return "Update fehlgeschlagen: Stage existiert nicht, auf die geupdated werden soll.";
-		}
 		
+		taskmanagementDomainService.checkTaskAndStageEntities(taskToUpdate, stageEntity);
 		TaskEntity taskToSave = taskmanagementDomainService.updateAssignedStage(taskToUpdate, stageId);	
 		Boolean udpateResult = taskRepository.updateTask(taskToSave);
 		if(!udpateResult) {
-			return "Update fehlgeschlagen: Task existiert nicht bzw. das Update hat auf DB-Ebene nicht geklappt.";
+			return new ResponseEntity<Object>(TaskManagementKonstanten.task_udpate_failed_task_do_not_exist, HttpStatus.NOT_MODIFIED);
 		}
 		
 		System.out.println(taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate, stageEntity.getKanbanid()));
-		return "Update von Task erfolgreich abgeschlossen";
+		String resultMessage = TaskManagementKonstanten.task_udpate_succesful + " for id " + id + " from stage " + oldStageId + " to stage " + taskToSave.getAssignedstage();
+		return new ResponseEntity<Object>(resultMessage, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> HandlePostNewTask(Task task) {
+		return null;
 	}
 }

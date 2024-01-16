@@ -1,5 +1,7 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.Repositories;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,14 @@ public class StageRepository {
         }
 	}
 	
-	public boolean isStagePositionAlreadyInUse(int position) {
-		return !jdbcStagePositionExistsRepository.findStageByPosition(position).isEmpty();
+	public boolean isStagePositionAlreadyInUse(int position, int kanbanid) {
+		List<StageEntity> foundStageEntities = jdbcStagePositionExistsRepository.findStageByPosition(position);
+		for (Iterator<StageEntity> iterator = foundStageEntities.iterator(); iterator.hasNext();) {
+			StageEntity stageEntity = (StageEntity) iterator.next();
+			if(stageEntity.getKanbanid() == kanbanid) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

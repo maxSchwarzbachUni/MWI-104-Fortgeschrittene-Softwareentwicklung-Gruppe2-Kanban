@@ -1,6 +1,8 @@
 package com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices;
 
-import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Stage;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.StageRepository;
@@ -14,23 +16,24 @@ public class StageApplicationService {
 		this.stageFactory = new StageFactory();
 	}
 
-	public Stage HandlePostNewStage(String name, int position) {
-		boolean isStagePositionAlreadyInUse = stageRepository.isStagePositionAlreadyInUse(position);
+	public ResponseEntity<Object> HandlePostNewStage(String name, int position, int kanbanid) {
+		boolean isStagePositionAlreadyInUse = stageRepository.isStagePositionAlreadyInUse(position, kanbanid);
 		if(isStagePositionAlreadyInUse) {
-			System.out.println("Anlage der Stage nicht möglich, weil die Position bereits verwendet wird.");
-			return null;
+			String positionAlreadyInUseMessage = "Anlage der Stage nicht möglich, weil die Position bereits verwendet wird.";
+			System.out.println(positionAlreadyInUseMessage);
+			return new ResponseEntity<Object>(positionAlreadyInUseMessage, HttpStatus.OK);
 		}
 		
-		StageEntity stageEntityToSafe = new StageEntity(name, position);
+		StageEntity stageEntityToSafe = new StageEntity(name, position, kanbanid);
 		
 		try {
 			StageEntity stageEntity = stageRepository.InsertNewStage(stageEntityToSafe);
-			return stageFactory.ConvertToAggregate(stageEntity);
+			return new ResponseEntity<Object>(stageFactory.ConvertToAggregate(stageEntity), HttpStatus.OK);
 		} 
 		catch (Exception e) {
-			System.out.println("Anlegen der neuen Stage ist fehlgeschlagen! Fehlermeldung: " + e.getMessage());
+			String errorMessage = "Anlegen der neuen Stage ist fehlgeschlagen! Fehlermeldung: " + e.getMessage();
+			System.out.println(errorMessage);
+			return new ResponseEntity<Object>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		System.out.println("Stage wurde nicht angelegt. Grund unbekannt.");
-		return null;
 	}
 }

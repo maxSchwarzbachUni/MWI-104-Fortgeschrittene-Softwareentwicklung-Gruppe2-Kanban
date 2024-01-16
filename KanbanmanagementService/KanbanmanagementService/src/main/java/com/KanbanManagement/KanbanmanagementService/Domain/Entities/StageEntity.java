@@ -15,17 +15,19 @@ public class StageEntity {
 
 	}
 	
-	public StageEntity(int id, String name, int position) {
+	public StageEntity(int id, String name, int position, int kanbanid) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.position = position;
+		this.kanbanid = kanbanid;
 	}
 	
-	public StageEntity(String name, int position) {
+	public StageEntity(String name, int position, int kanbanid) {
 		super();
 		this.name = name;
 		this.position = position;
+		this.kanbanid = kanbanid;
 	}
 
 	public int getId() {
