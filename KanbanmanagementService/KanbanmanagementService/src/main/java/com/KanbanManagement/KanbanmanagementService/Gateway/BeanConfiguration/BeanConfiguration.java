@@ -3,7 +3,9 @@ package com.KanbanManagement.KanbanmanagementService.Gateway.BeanConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.StageDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
+import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
@@ -35,9 +37,15 @@ public class BeanConfiguration {
 	 }
 	 
 	 @Bean
-	 StageApplicationService stagemanagementApplicationService(IStageRepository stageRepository) {
-	        return new StageApplicationService(stageRepository);
+	 StageApplicationService stagemanagementApplicationService(IStageRepository stageRepository, StageDomainService stageDomainService) {
+	        return new StageApplicationService(stageRepository, stageDomainService);
 	 }
+	 
+	 @Bean 
+	 StageDomainService stageDomainService() {
+		 return new StageDomainService(new StageFactory());
+	 }
+	 
 	 
 	 @Bean
 	 IStageRepository stageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {

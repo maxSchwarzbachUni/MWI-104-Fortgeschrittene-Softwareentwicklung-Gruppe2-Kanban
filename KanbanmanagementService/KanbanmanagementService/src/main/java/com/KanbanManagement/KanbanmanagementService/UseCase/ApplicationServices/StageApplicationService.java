@@ -6,18 +6,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Stage;
+import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.StageDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
-import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 
 public class StageApplicationService {
 	private IStageRepository stageRepository;
-	private StageFactory stageFactory;
+	private StageDomainService stageDomainService;
 	
-	public StageApplicationService(IStageRepository stageRepository) {
+	public StageApplicationService(IStageRepository stageRepository, StageDomainService stageDomainService) {
 		this.stageRepository = stageRepository;
-		this.stageFactory = new StageFactory();
+		this.stageDomainService = stageDomainService;
 	}
 
 	public ResponseEntity<Object> HandlePostNewStage(String name, int position, int kanbanid) {
@@ -32,7 +32,8 @@ public class StageApplicationService {
 		
 		try {
 			StageEntity stageEntity = stageRepository.InsertNewStage(stageEntityToSafe);
-			return new ResponseEntity<Object>(stageFactory.ConvertToAggregate(stageEntity), HttpStatus.OK);
+			Stage resultStage = stageDomainService.ConvertStageEntityToAggregate(stageEntity);
+			return new ResponseEntity<Object>(resultStage, HttpStatus.OK);
 		} 
 		catch (Exception e) {
 			String errorMessage = "Anlegen der neuen Stage ist fehlgeschlagen! Fehlermeldung: " + e.getMessage();
@@ -43,7 +44,7 @@ public class StageApplicationService {
 
 	public ResponseEntity<Object> HandleGetAllStages() {
 		Iterable<StageEntity> stageEntityList = stageRepository.getAllStages();
-		List<Stage> stageList = stageFactory.ConvertStageEntityListToStageList(stageEntityList);
+		List<Stage> stageList = stageDomainService.ConvertStageEntityListToStageList(stageEntityList);	
 		return new ResponseEntity<Object>(stageList.toArray(), HttpStatus.OK);
 	}
 
@@ -52,6 +53,6 @@ public class StageApplicationService {
 		if(foundStageEntity == null) {
 			return new ResponseEntity<Object>("Stage mit id " + id + " konnte leider nicht gefunden werden",HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Object>(stageFactory.ConvertToAggregate(foundStageEntity), HttpStatus.OK);
+		return new ResponseEntity<Object>(stageDomainService.ConvertStageEntityToAggregate(foundStageEntity), HttpStatus.OK);
 	}
 }
