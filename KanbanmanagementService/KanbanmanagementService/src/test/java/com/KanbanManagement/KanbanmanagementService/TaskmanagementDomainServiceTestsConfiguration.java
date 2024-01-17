@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
 
 @Profile("test")
@@ -13,7 +14,7 @@ import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRep
 public class TaskmanagementDomainServiceTestsConfiguration {
 	   @Bean
 	   @Primary
-	   public TaskRepository taskService() {
+	   public ITaskRepository taskService() {
 	      return Mockito.mock(TaskRepository.class);
 	   }
 }

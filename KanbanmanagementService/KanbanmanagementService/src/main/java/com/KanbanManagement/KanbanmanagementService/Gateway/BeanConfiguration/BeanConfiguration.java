@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.JdbcStageEntityRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.JdbcStagePositionExistsRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.JdbcTaskEntityRepository;
@@ -18,7 +20,7 @@ import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.
 public class BeanConfiguration {
 	
 	 @Bean
-	 TaskmanagementApplicationService taskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, StageRepository stageRepository) {
+	 TaskmanagementApplicationService taskmanagementApplicationService(ITaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
 	        return new TaskmanagementApplicationService(taskRepository, taskmanagementDomainService, stageRepository);
 	 }
 	 
@@ -28,17 +30,17 @@ public class BeanConfiguration {
 	 }
 	 
 	 @Bean
-	 TaskRepository taskRepository(JdbcTaskEntityRepository jdbcTaskEntityRepository) {
+	 ITaskRepository taskRepository(JdbcTaskEntityRepository jdbcTaskEntityRepository) {
 	        return new TaskRepository(jdbcTaskEntityRepository);
 	 }
 	 
 	 @Bean
-	 StageApplicationService stagemanagementApplicationService(StageRepository stageRepository) {
+	 StageApplicationService stagemanagementApplicationService(IStageRepository stageRepository) {
 	        return new StageApplicationService(stageRepository);
 	 }
 	 
 	 @Bean
-	 StageRepository stageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
+	 IStageRepository stageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
 	        return new StageRepository(jdbcStageEntityRepository, jdbcStagePositionExistsRepository);
 	 }
 }

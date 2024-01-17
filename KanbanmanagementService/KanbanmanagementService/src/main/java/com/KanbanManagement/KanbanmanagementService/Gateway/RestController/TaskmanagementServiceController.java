@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,9 +38,8 @@ public class TaskmanagementServiceController {
 		return taskmanagementApplicationService.HandleGetTaskById(id);
 	}
 	
-	//TODO
 	@PostMapping("tasks")
-	public ResponseEntity<Object> PostNewTask(@RequestParam Task task) {
+	public ResponseEntity<Object> PostNewTask(@RequestBody Task task) {
 		System.out.println("Post new task");
 		return taskmanagementApplicationService.HandlePostNewTask(task);
 	}
@@ -50,10 +50,28 @@ public class TaskmanagementServiceController {
 		return taskmanagementApplicationService.HandleUpdateAssignedStage(id, stageId);
 	}
 	
+	@PutMapping("tasks/update")
+	public ResponseEntity<Object> UpdateTaskField(@RequestParam int id, @RequestParam String fieldname, @RequestParam Object value){
+		System.out.println("Update Task " + id + " field " + fieldname + " to " + value);	
+		return taskmanagementApplicationService.HandleUpdateTaskField(id, fieldname, value);
+	}
+	
 	@PostMapping("stages")
-	public ResponseEntity<Object> PostNewStage(@RequestParam String name, @RequestParam int position, int kanbanid) {
+	public ResponseEntity<Object> PostNewStage(@RequestParam String name, @RequestParam int position, @RequestParam int kanbanid) {
 		System.out.println("Post new stage with name " + name + " and position " + position + " to board " + kanbanid);
 		return stagemanagementApplicationService.HandlePostNewStage(name, position, kanbanid);
+	}
+	
+	@GetMapping("stages")
+	public ResponseEntity<Object> GetAllStages() {
+		System.out.println("Get all Stages");
+		return stagemanagementApplicationService.HandleGetAllStages();
+	}
+	
+	@GetMapping("stages/{id}")
+	public ResponseEntity<Object> GetStageById(@PathVariable int id) {
+		System.out.println("Get Stage with id " + id);
+		return stagemanagementApplicationService.HandleGetStageById(id);
 	}
 	
 	@GetMapping("raiseNotification")

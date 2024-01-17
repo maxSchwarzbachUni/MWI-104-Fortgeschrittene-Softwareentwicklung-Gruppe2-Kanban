@@ -18,6 +18,10 @@ public class TaskFactory {
 	public TaskEntity ConvertToEntity(Task task) {
 		TaskId taskId = task.getTaskId();
 		StageId assignedstage = task.getAssignedstage();
+		if(taskId == null) {
+			return new TaskEntity(task.getTaskName(), assignedstage.getId(), task.getTaskDescription(), 
+					task.getRemainingworkload(), task.getCreationdate(), (byte) task.getTasktype().ordinal(), task.getLastchangeDate(), task.getPriority());
+		}
 		return new TaskEntity(taskId.getId(), task.getTaskName(), assignedstage.getId(), task.getTaskDescription(), 
 				task.getRemainingworkload(), task.getCreationdate(), (byte) task.getTasktype().ordinal(), task.getLastchangeDate(), task.getPriority());
 	}
@@ -30,12 +34,12 @@ public class TaskFactory {
 				taskEntity.getRemainingworkload(), taskEntity.getCreationdate(), taskType, taskEntity.getLastchangeDate(), taskEntity.getTaskPriority());	
 	}
 	
-	public ResponseEntity<Object> ConvertTaskListToTaskEntityList(Iterable<TaskEntity> taskEntityList) {
+	public List<Task> ConvertTaskListToTaskEntityList(Iterable<TaskEntity> taskEntityList) {
 		List<Task> taskList = new ArrayList<Task>();
 		for (TaskEntity taskEntity : taskEntityList) {
 			var convertedTask = ConvertToAggregate(taskEntity);
 			taskList.add(convertedTask);
 		}
-		return new ResponseEntity<Object>((Task[]) taskList.toArray(new Task[taskList.size()]), HttpStatus.OK);
+		return taskList;
 	}
 }

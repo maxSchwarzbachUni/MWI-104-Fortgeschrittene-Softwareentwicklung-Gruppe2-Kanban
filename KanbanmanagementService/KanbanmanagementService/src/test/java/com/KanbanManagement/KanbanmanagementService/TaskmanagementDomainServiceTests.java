@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
-import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskManagementKonstanten;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
 
@@ -22,7 +22,7 @@ public class TaskmanagementDomainServiceTests {
 	private TaskmanagementApplicationService taskmanagementApplicationService;
 	
 	@Autowired
-	private TaskRepository taskRepository;
+	private ITaskRepository taskRepository;
 	
    @Test
    public void when_incorrect_user_id_is_submitted_no_update_will_be_excecuted() {

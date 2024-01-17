@@ -11,7 +11,7 @@ import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
 
 @Component
-public class StageRepository {
+public class StageRepository implements IStageRepository {
 
 	private final JdbcStageEntityRepository jdbcStageEntityRepository;
 	private final JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository;
@@ -22,6 +22,7 @@ public class StageRepository {
 		this.jdbcStagePositionExistsRepository = jdbcStagePositionExistsRepository;
 	}
 	
+	@Override
 	public StageEntity InsertNewStage(StageEntity stageEntity) {
 		if(stageEntity != null) {
 			return jdbcStageEntityRepository.save(stageEntity);			
@@ -29,6 +30,7 @@ public class StageRepository {
 		return null;
 	}
 	
+	@Override
 	public StageEntity findById(StageId stageId) {
 		Optional<StageEntity> stageEntity = jdbcStageEntityRepository.findById(stageId.getId());
         if (stageEntity.isPresent()) {
@@ -38,6 +40,7 @@ public class StageRepository {
         }
 	}
 	
+	@Override
 	public boolean isStagePositionAlreadyInUse(int position, int kanbanid) {
 		List<StageEntity> foundStageEntities = jdbcStagePositionExistsRepository.findStageByPosition(position);
 		for (Iterator<StageEntity> iterator = foundStageEntities.iterator(); iterator.hasNext();) {
@@ -47,5 +50,15 @@ public class StageRepository {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Iterable<StageEntity> getAllStages() {
+		Optional<Iterable<StageEntity>> stageList = Optional.ofNullable(jdbcStageEntityRepository.findAll());
+        if (stageList.isPresent()) {
+            return stageList.get();
+        } else {
+            return null;
+        }		
 	}
 }

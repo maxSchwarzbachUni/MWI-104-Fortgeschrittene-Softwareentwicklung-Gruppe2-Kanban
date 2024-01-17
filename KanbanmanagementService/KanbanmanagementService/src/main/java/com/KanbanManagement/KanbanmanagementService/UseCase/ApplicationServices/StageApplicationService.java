@@ -1,17 +1,21 @@
 package com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Stage;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
-import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.StageRepository;
+import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 
 public class StageApplicationService {
-	private StageRepository stageRepository;
+	private IStageRepository stageRepository;
 	private StageFactory stageFactory;
 	
-	public StageApplicationService(StageRepository stageRepository) {
+	public StageApplicationService(IStageRepository stageRepository) {
 		this.stageRepository = stageRepository;
 		this.stageFactory = new StageFactory();
 	}
@@ -35,5 +39,19 @@ public class StageApplicationService {
 			System.out.println(errorMessage);
 			return new ResponseEntity<Object>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public ResponseEntity<Object> HandleGetAllStages() {
+		Iterable<StageEntity> stageEntityList = stageRepository.getAllStages();
+		List<Stage> stageList = stageFactory.ConvertStageEntityListToStageList(stageEntityList);
+		return new ResponseEntity<Object>(stageList.toArray(), HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> HandleGetStageById(int id) {
+		StageEntity foundStageEntity = stageRepository.findById(new StageId(id));
+		if(foundStageEntity == null) {
+			return new ResponseEntity<Object>("Stage mit id " + id + " konnte leider nicht gefunden werden",HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Object>(stageFactory.ConvertToAggregate(foundStageEntity), HttpStatus.OK);
 	}
 }

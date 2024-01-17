@@ -1,24 +1,29 @@
 package com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
+import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.DomainResult;
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
-import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.StageRepository;
-import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 
 public class TaskmanagementApplicationService {
 	
-	private TaskRepository taskRepository;
-	private StageRepository stageRepository;
+	private ITaskRepository taskRepository;
+	private IStageRepository stageRepository;
 	private TaskmanagementDomainService taskmanagementDomainService;
 	
-	public TaskmanagementApplicationService(TaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, StageRepository stageRepository) {
+	public TaskmanagementApplicationService(ITaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
 		this.taskRepository = taskRepository;
 		this.taskmanagementDomainService = taskmanagementDomainService;
 		this.stageRepository = stageRepository;
@@ -26,7 +31,7 @@ public class TaskmanagementApplicationService {
 
 	public ResponseEntity<Object> HandleGetAllTasksRequest() {
 		Iterable<TaskEntity> taskEntityList = taskRepository.getAllTasks();
-		return taskmanagementDomainService.ConvertTaskListToTaskEntityList(taskEntityList);	
+		return new ResponseEntity<Object>(taskmanagementDomainService.ConvertTaskListToTaskEntityList(taskEntityList), HttpStatus.OK);	
 	}
 
 	public ResponseEntity<Object> HandleGetTaskById(int taskId) {
@@ -54,7 +59,32 @@ public class TaskmanagementApplicationService {
 		return new ResponseEntity<Object>(resultMessage, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Object> HandlePostNewTask(Task task) {
-		return null;
+	public ResponseEntity<Object> HandlePostNewTask(Task taskToCreate) {
+		DomainResult checkTaskResult = taskmanagementDomainService.validateNewTaskData(taskToCreate);
+		if(!checkTaskResult.ActionSuccesful) {
+			return new ResponseEntity<Object>(checkTaskResult.Message, checkTaskResult.statusCode);
+		}
+		Task taskToSave = taskmanagementDomainService.AmendNewTask(taskToCreate);
+		TaskEntity taskEntityToSave = taskmanagementDomainService.getTaskEntityFromAggrate(taskToSave);
+		TaskEntity resultingTaskEntity = taskRepository.saveTask(taskEntityToSave);
+		if(resultingTaskEntity == null) {
+			return new ResponseEntity<Object>("Task could not be saved", HttpStatus.NOT_MODIFIED);
+		}
+		return new ResponseEntity<Object>("Task saved with id " + resultingTaskEntity.getId(), HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> HandleUpdateTaskField(int id, String fieldname, Object value) {
+		TaskEntity taskToUpdate = taskRepository.findById(new TaskId(id));
+		if(taskToUpdate == null) {
+			return new ResponseEntity<Object>("Task to update was not found with id " + id, HttpStatus.NOT_FOUND);
+		}
+		try {
+			TaskEntity taskEntityToSave = taskmanagementDomainService.getUpdatedTaskEntityWithFieldChanged(taskToUpdate, fieldname, value);
+			taskRepository.saveTask(taskEntityToSave);
+			return new ResponseEntity<Object>("Task with id " + taskEntityToSave.getId() + " updated value of field " + fieldname + " to " + value , HttpStatus.OK);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<Object>("Task could not be updated, exception: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 }

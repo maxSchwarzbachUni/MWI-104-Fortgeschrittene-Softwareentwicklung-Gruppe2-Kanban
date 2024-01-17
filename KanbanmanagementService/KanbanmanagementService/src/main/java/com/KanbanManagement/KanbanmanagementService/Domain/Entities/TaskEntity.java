@@ -35,6 +35,19 @@ public class TaskEntity {
 		this.lastchange = lastchange;
 		this.priority = priority;
 	}
+	
+	public TaskEntity(String name, int assignedstage, String description, double remainingworkload,
+			Date creationdate, byte tasktype, Date lastchange, byte priority) {
+		super();
+		this.name = name;
+		this.assignedstage = assignedstage;
+		this.description = description;
+		this.remainingworkload = remainingworkload;
+		this.creationdate = creationdate;
+		this.tasktype = tasktype;
+		this.lastchange = lastchange;
+		this.priority = priority;
+	}
 
 	public int getId() {
 		return id;
