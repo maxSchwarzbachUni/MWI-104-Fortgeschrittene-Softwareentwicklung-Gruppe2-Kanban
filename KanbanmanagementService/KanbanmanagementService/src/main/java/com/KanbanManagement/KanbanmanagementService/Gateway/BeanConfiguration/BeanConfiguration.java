@@ -24,7 +24,7 @@ public class BeanConfiguration {
 	 
 	 @Bean 
 	 TaskmanagementDomainService taskmanagementDomainService() {
-		 return new TaskmanagementDomainService(new TaskNotificationEmitterService());
+		 return new TaskmanagementDomainService(new TaskNotificationEmitterService(), new TaskFactory());
 	 }
 	 
 	 @Bean

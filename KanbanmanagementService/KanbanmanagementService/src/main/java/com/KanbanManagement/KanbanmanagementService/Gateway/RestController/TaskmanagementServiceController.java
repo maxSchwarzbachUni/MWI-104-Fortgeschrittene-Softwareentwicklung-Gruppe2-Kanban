@@ -28,7 +28,7 @@ public class TaskmanagementServiceController {
 	@GetMapping("tasks")
 	public ResponseEntity<Object> GetAlltasks() {
 		System.out.println("Get all Tasks");
-		return taskmanagementApplicationService.HandleGetAllTasksRequest();;
+		return taskmanagementApplicationService.HandleGetAllTasksRequest();
 	}
 	
 	@GetMapping("tasks/{id}")
