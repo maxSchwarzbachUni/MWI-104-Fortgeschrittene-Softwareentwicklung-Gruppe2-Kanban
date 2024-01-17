@@ -11,9 +11,11 @@ import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.No
 @RequestMapping("/kanbanboard_reporting")
 public class KanbanReportingServiceController {
 	
-	public KanbanReportingServiceController() {
-		NotificationReceiverService service = new NotificationReceiverService();
-		service.ReceiveTaskChangedNotificationRabbitMq();
+	NotificationReceiverService notificationReceiverService;
+	
+	public KanbanReportingServiceController(NotificationReceiverService notificationReceiverService) {
+		this.notificationReceiverService = notificationReceiverService;
+		notificationReceiverService.ReceiveTaskChangedNotificationRabbitMq();
 	}
 	
 	@GetMapping("/")

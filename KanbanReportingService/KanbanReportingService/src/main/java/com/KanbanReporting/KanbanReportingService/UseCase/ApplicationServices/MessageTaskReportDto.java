@@ -1,26 +1,30 @@
-package com.KanbanManagement.KanbanmanagementService.Domain.Aggregates;
+package com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices;
 
 import java.sql.Date;
 
-import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
-
-public class TaskReportData {
+public class MessageTaskReportDto {
 	int taskId;
-    Date creationDate;
-    Date lastChange;
-    int kanbanid;    
-    Boolean updateToLastStage;
-    
-    public TaskReportData(int taskId, Date creationDate, Date lastChange, int kanbanid, Boolean updateToLastStage) {
+	Date creationDate;
+	Date lastChange;
+	int kanbanid;
+	Boolean updateToLastStage;
+	
+	
+	public MessageTaskReportDto() {
+		super();
+	}
+	
+	public MessageTaskReportDto(int taskId, Date creationDate, Date lastChange, int kanbanid,
+			Boolean updateToLastStage) {
 		super();
 		this.taskId = taskId;
 		this.creationDate = creationDate;
 		this.lastChange = lastChange;
 		this.kanbanid = kanbanid;
-		this.updateToLastStage = updateToLastStage; 
+		this.updateToLastStage = updateToLastStage;
 	}
-    
-    public int getTaskId() {
+	
+	public int getTaskId() {
 		return taskId;
 	}
 	
@@ -43,21 +47,20 @@ public class TaskReportData {
 	public void setLastChange(Date lastChange) {
 		this.lastChange = lastChange;
 	}
-
+	
 	public int getKanbanid() {
 		return kanbanid;
 	}
-
+	
 	public void setKanbanid(int kanbanid) {
 		this.kanbanid = kanbanid;
 	}
-
+	
 	public Boolean getUpdateToLastStage() {
 		return updateToLastStage;
 	}
-
+	
 	public void setUpdateToLastStage(Boolean updateToLastStage) {
 		this.updateToLastStage = updateToLastStage;
-	}       
-	
+	}		
 }

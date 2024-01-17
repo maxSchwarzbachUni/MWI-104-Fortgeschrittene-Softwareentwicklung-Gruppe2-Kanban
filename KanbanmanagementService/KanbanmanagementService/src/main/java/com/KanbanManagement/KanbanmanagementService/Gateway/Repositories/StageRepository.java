@@ -1,7 +1,9 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.Repositories;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +62,23 @@ public class StageRepository implements IStageRepository {
         } else {
             return null;
         }		
+	}
+	
+	public int getLastStage(int kanbanId) {
+		List<StageEntity> foundStageEntities = jdbcStagePositionExistsRepository.findStageByKanbanid(kanbanId);
+		int lastStagePosition = foundStageEntities
+			      .stream()
+			      .mapToInt(v -> v.getPosition())
+			      .max().orElseThrow(NoSuchElementException::new);
+		
+		List<StageEntity> newStageEntities = jdbcStagePositionExistsRepository.findStageByPosition(lastStagePosition);
+		int stageId = 0;
+		for (StageEntity stageEntity : newStageEntities) {
+			if(stageEntity.getKanbanid() == kanbanId) {
+				stageId = stageEntity.getId();
+			}
+		}
+		
+		return stageId;
 	}
 }

@@ -25,6 +25,20 @@ public class TaskmanagementDomainService {
 		this.taskChangedNotificationEmitterService = taskChangedNotificationEmitterService;
 		this.taskFactory = taskFactory; 
 	}
+	
+	public String createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid, Boolean updateToLastStage) {
+		try {
+			Date lastchangeDate = taskToUpdate.getLastchangeDate();
+			Date creationdate = taskToUpdate.getCreationdate();
+			TaskId taskId = new TaskId(taskToUpdate.getId());
+			TaskReportData messageTaskObject = new TaskReportData(taskId.getId(), creationdate, lastchangeDate, kanbanid, updateToLastStage);			
+			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
+		} 
+		catch (Exception e) {
+			return "Fehler bei Update von Task! Meldung: /n" + e.getMessage();
+		}
+		return "Nachrichten verschicken hat erfolgreich geklappt";
+	}
 		
 	public Boolean checkIfTaskEntityIsEmpty(TaskEntity taskToUpdate) {
 		return taskToUpdate == null;
@@ -39,17 +53,6 @@ public class TaskmanagementDomainService {
 		taskToUpdate.setAssignedstage(stageId);
 		taskToUpdate.setLastchangeDate(getCurrentTime());
 		return taskToUpdate;
-	}
-	
-	public String createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid) {
-		try {
-			TaskReportData messageTaskObject = new TaskReportData(new TaskId(taskToUpdate.getId()), taskToUpdate.getCreationdate(), taskToUpdate.getLastchangeDate(), kanbanid);			
-			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
-			return "Nachrichten verschicken hat erfolgreich geklappt";
-		} 
-		catch (Exception e) {
-			return "Fehler bei Update von Task! Meldung: /n" + e.getMessage();
-		}
 	}
 
 	public Object[] ConvertTaskListToTaskEntityList(Iterable<TaskEntity> taskEntityList) {
@@ -130,7 +133,11 @@ public class TaskmanagementDomainService {
 		default:
 			throw new IllegalArgumentException("Feldname nicht erlaubt zu ändern oder nicht existent / korrekt: " + fieldname);
 		}
-		
+		taskToUpdate.setLastchangeDate(getCurrentTime());
 		return taskToUpdate;		
+	}
+
+	public Boolean UpdateWasToFinalLastStageOfBoard(int lastStageId, int oldStageId, int newStageId) {
+		return ((oldStageId != newStageId) && lastStageId == newStageId);
 	}
 }

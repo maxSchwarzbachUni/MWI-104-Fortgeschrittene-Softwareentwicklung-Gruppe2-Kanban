@@ -18,7 +18,7 @@ public class TaskNotificationEmitterService {
 	    try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
 	        channel.exchangeDeclare(EXCHANGE_NAME, "topic");
 
-	        String routingKey = "task.update." + messageTaskObject.getTaskId().getId();
+	        String routingKey = "task.update." + messageTaskObject.getTaskId();
 	        String message = convertObjectToJson(messageTaskObject);
 
 	        channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes("UTF-8"));
@@ -27,7 +27,6 @@ public class TaskNotificationEmitterService {
 	    catch(Exception e) {
 	    	System.out.println("Fehler: " + e.getMessage());
 	    }
-	    
     }
 	
     public static String convertObjectToJson(Object object) throws Exception {

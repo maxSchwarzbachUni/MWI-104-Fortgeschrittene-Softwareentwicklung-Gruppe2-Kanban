@@ -7,149 +7,329 @@
 	},
 	"item": [
 		{
-			"name": "Hello Testrequest",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/hello?name=Gerd",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"hello"
-					],
-					"query": [
+			"name": "KanbanmanagementService",
+			"item": [
+				{
+					"name": "Task Requests",
+					"item": [
 						{
-							"key": "name",
-							"value": "Gerd"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Testrequest JSON",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/kanbanboard_management/taskstest/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"kanbanboard_management",
-						"taskstest",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Tasks JSON",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/kanbanboard_management/tasks",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"kanbanboard_management",
-						"tasks"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Task JSON",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/kanbanboard_management/tasks/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"kanbanboard_management",
-						"tasks",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateTaskStage",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"kanbanboard_management",
-						"tasks",
-						"2",
-						"stage"
-					],
-					"query": [
-						{
-							"key": "stageId",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post new Stage",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/kanbanboard_management/stages?name=In Testing&position=4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"kanbanboard_management",
-						"stages"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "In Testing"
+							"name": "Get All Tasks",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "position",
-							"value": "4"
+							"name": "Get Task",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post new Task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "test",
+											"type": "text"
+										},
+										{
+											"key": "assignedstage",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "das ist eine Testdescription",
+											"type": "text"
+										},
+										{
+											"key": "remainingworkload",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "tasktype",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update specific Task field",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=2&fieldname=taskName&value=new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks",
+										"update"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										},
+										{
+											"key": "fieldname",
+											"value": "taskName"
+										},
+										{
+											"key": "value",
+											"value": "new"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Task Stage",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks",
+										"2",
+										"stage"
+									],
+									"query": [
+										{
+											"key": "stageId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
+				},
+				{
+					"name": "Stage Requests",
+					"item": [
+						{
+							"name": "Get all Stages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/stages",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"stages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Stage",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/stages/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"stages",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post new Stage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/stages?name=In Testing&position=5&kanbanid=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"stages"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "In Testing"
+										},
+										{
+											"key": "position",
+											"value": "5"
+										},
+										{
+											"key": "kanbanid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Obsolete: Controller Testrequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hello?name=Gerd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hello"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Gerd"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "KanbanReportingService",
+			"item": [
+				{
+					"name": "Hello Testrequest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kanbanboard_reporting/hello?name=Joachim",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kanbanboard_reporting",
+								"hello"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Joachim"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RabbitMQ Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/kanbanboard_management/raiseNotification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"kanbanboard_management",
+								"raiseNotification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

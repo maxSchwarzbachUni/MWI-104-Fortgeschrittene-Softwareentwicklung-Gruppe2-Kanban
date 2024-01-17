@@ -12,5 +12,7 @@ public interface IStageRepository {
 	boolean isStagePositionAlreadyInUse(int position, int kanbanid);
 
 	Iterable<StageEntity> getAllStages();
+	
+	int getLastStage(int kanbanid);
 
 }

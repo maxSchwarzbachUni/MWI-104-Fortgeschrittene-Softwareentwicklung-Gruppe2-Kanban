@@ -22,8 +22,8 @@ import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.
 public class BeanConfiguration {
 	
 	 @Bean
-	 TaskmanagementApplicationService taskmanagementApplicationService(ITaskRepository taskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
-	        return new TaskmanagementApplicationService(taskRepository, taskmanagementDomainService, stageRepository);
+	 TaskmanagementApplicationService taskmanagementApplicationService(ITaskRepository iTaskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
+	        return new TaskmanagementApplicationService(iTaskRepository, taskmanagementDomainService, stageRepository);
 	 }
 	 
 	 @Bean 
@@ -32,13 +32,13 @@ public class BeanConfiguration {
 	 }
 	 
 	 @Bean
-	 ITaskRepository taskRepository(JdbcTaskEntityRepository jdbcTaskEntityRepository) {
+	 ITaskRepository iTaskRepository(JdbcTaskEntityRepository jdbcTaskEntityRepository) {
 	        return new TaskRepository(jdbcTaskEntityRepository);
 	 }
 	 
 	 @Bean
-	 StageApplicationService stagemanagementApplicationService(IStageRepository stageRepository, StageDomainService stageDomainService) {
-	        return new StageApplicationService(stageRepository, stageDomainService);
+	 StageApplicationService stagemanagementApplicationService(IStageRepository iStageRepository, StageDomainService stageDomainService) {
+	        return new StageApplicationService(iStageRepository, stageDomainService);
 	 }
 	 
 	 @Bean 
@@ -48,7 +48,7 @@ public class BeanConfiguration {
 	 
 	 
 	 @Bean
-	 IStageRepository stageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
+	 IStageRepository iStageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
 	        return new StageRepository(jdbcStageEntityRepository, jdbcStagePositionExistsRepository);
 	 }
 }
