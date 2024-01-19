@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
+import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskManagementKonstanten;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
@@ -23,16 +24,17 @@ public class TaskmanagementDomainServiceTests {
 	
 	@Autowired
 	private ITaskRepository taskRepository;
+	private IStageRepository stageRepository;
 	
    @Test
-   public void when_incorrect_user_id_is_submitted_no_update_will_be_excecuted() {
+   public void when_incorrect_task_id_is_submitted_no_update_will_be_excecuted() {
       Mockito.when(taskRepository.findById(new TaskId(1337))).thenReturn(null);
       String resultMessage = taskmanagementApplicationService.HandleUpdateAssignedStage(1337, 3).getBody().toString();
       Assert.assertEquals(TaskManagementKonstanten.task_update_failed_no_task_for_update_found , resultMessage);
    }	
    
    @Test
-   public void when_incorrect_user_id_is_submitted_no_update_will_be_excecuted_2() {
+   public void when_incorrect_task_id_is_submitted_no_update_will_be_excecuted_2() {
       Mockito.when(taskRepository.findById(new TaskId(1337))).thenReturn(null);
       String resultMessage = taskmanagementApplicationService.HandleUpdateAssignedStage(1337, 3).getBody().toString();
       Assert.assertEquals("bla bla" , resultMessage);

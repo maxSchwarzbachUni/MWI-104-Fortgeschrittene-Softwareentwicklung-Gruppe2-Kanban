@@ -46,7 +46,6 @@ public class BeanConfiguration {
 		 return new StageDomainService(new StageFactory());
 	 }
 	 
-	 
 	 @Bean
 	 IStageRepository iStageRepository(JdbcStageEntityRepository jdbcStageEntityRepository, JdbcStagePositionExistsRepository jdbcStagePositionExistsRepository) {
 	        return new StageRepository(jdbcStageEntityRepository, jdbcStagePositionExistsRepository);

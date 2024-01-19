@@ -36,6 +36,4 @@ public class TaskNotificationEmitterService {
         // Konvertiere das Objekt in JSON als String
         return objectMapper.writeValueAsString(object);
     }
-}
-
-
+}	

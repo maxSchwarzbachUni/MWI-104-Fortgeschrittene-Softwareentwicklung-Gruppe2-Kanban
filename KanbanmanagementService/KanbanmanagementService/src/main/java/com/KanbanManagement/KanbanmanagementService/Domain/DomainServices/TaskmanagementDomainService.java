@@ -63,12 +63,15 @@ public class TaskmanagementDomainService {
 		return taskFactory.ConvertToAggregate(TaskEntity);
 	}
 
-	public DomainResult checkTaskAndStageEntities(TaskEntity taskToUpdate, StageEntity stageEntity) {
+	public DomainResult checkTaskEntity(TaskEntity taskToUpdate) {
 		Boolean entityIsEmpty = checkIfTaskEntityIsEmpty(taskToUpdate);
 		if(entityIsEmpty) {
 			return new DomainResult(false, TaskManagementKonstanten.task_update_failed_no_task_for_update_found, HttpStatus.NOT_FOUND);
 		}
-		
+		return new DomainResult(true, null, HttpStatus.OK);	
+	}
+	
+	public DomainResult checkStageEntity(StageEntity stageEntity) {
 		if(stageEntity == null) {
 			return new DomainResult(false, TaskManagementKonstanten.task_update_failed_stage_to_update_to_not_found, HttpStatus.NOT_FOUND);
 		}

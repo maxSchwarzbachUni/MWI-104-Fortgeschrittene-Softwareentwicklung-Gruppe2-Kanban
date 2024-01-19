@@ -1,10 +1,6 @@
 package com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
@@ -45,10 +41,19 @@ public class TaskmanagementApplicationService {
 	// RabbitMQ Message
 	public ResponseEntity<Object> HandleUpdateAssignedStage(int id, int stageId) {
 		TaskEntity taskToUpdate  = taskRepository.findById(new TaskId(id));
+		
+		DomainResult checkTaskResult = taskmanagementDomainService.checkTaskEntity(taskToUpdate);
+		if(!checkTaskResult.ActionSuccesful) {
+			return new ResponseEntity<Object>(checkTaskResult.Message, checkTaskResult.statusCode);
+		}
+		
 		int oldStageId = taskToUpdate.getAssignedstage();
 		StageEntity stageEntity = stageRepository.findById(new StageId(stageId));
+		DomainResult checkStageResult =taskmanagementDomainService.checkStageEntity(stageEntity);
+		if(!checkStageResult.ActionSuccesful) {
+			return new ResponseEntity<Object>(checkStageResult.Message, checkStageResult.statusCode);
+		}	
 		
-		taskmanagementDomainService.checkTaskAndStageEntities(taskToUpdate, stageEntity);
 		TaskEntity taskToSave = taskmanagementDomainService.updateAssignedStage(taskToUpdate, stageId);	
 		Boolean udpateResult = taskRepository.updateTask(taskToSave);
 		if(!udpateResult) {
@@ -83,7 +88,7 @@ public class TaskmanagementApplicationService {
 			return new ResponseEntity<Object>("Task to update was not found with id " + id, HttpStatus.NOT_FOUND);
 		}
 		int oldStageId = taskToUpdate.getAssignedstage();
-	
+			
 		try {
 			TaskEntity taskEntityToSave = taskmanagementDomainService.getUpdatedTaskEntityWithFieldChanged(taskToUpdate, fieldname, value);
 			taskRepository.saveTask(taskEntityToSave);
