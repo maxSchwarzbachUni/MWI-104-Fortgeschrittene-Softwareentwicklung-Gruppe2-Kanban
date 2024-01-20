@@ -26,7 +26,7 @@ public class TaskmanagementDomainService {
 		this.taskFactory = taskFactory; 
 	}
 	
-	public String createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid, Boolean updateToLastStage) {
+	public void createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid, Boolean updateToLastStage) {
 		try {
 			Date lastchangeDate = taskToUpdate.getLastchangeDate();
 			Date creationdate = taskToUpdate.getCreationdate();
@@ -35,9 +35,9 @@ public class TaskmanagementDomainService {
 			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
 		} 
 		catch (Exception e) {
-			return "Fehler bei Update von Task! Meldung: /n" + e.getMessage();
+			System.out.println("Fehler bei Update von Task! Meldung: /n" + e.getMessage());
 		}
-		return "Nachrichten verschicken hat erfolgreich geklappt";
+		System.out.println("Nachrichten verschicken hat erfolgreich geklappt");
 	}
 		
 	public Boolean checkIfTaskEntityIsEmpty(TaskEntity taskToUpdate) {
