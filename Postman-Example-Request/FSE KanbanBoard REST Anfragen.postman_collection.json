@@ -284,7 +284,7 @@
 			"name": "KanbanReportingService",
 			"item": [
 				{
-					"name": "Hello Testrequest",
+					"name": "Obsolete: Testrequest",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -310,7 +310,7 @@
 					"response": []
 				},
 				{
-					"name": "RabbitMQ Test",
+					"name": "Obsolete: RabbitMQ Test",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -324,6 +324,70 @@
 							"path": [
 								"kanbanboard_management",
 								"raiseNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Taskreport by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kanbanboard_reporting/taskreport/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kanbanboard_reporting",
+								"taskreport",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Taskreport of Kanbanboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kanbanboard_reporting/taskreport/all_from_board/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kanbanboard_reporting",
+								"taskreport",
+								"all_from_board",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kanbanreport for KanbanboardId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kanbanboard_reporting/kanbanboardreport/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kanbanboard_reporting",
+								"kanbanboardreport",
+								"1"
 							]
 						}
 					},
