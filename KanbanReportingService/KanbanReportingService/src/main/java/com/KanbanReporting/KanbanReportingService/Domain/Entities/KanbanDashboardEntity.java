@@ -1,12 +1,16 @@
 package com.KanbanReporting.KanbanReportingService.Domain.Entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table (name = "KANBANDASHBOARD")
 public class KanbanDashboardEntity {
-	
+	@Id
 	int id;
-	int kanbanId;
-	double avgLeadTime;
-	double avgCycleTime;
-	int oldestActiveTask;
+	int kanbanid;
+	double avgleadtime;
+	double avgcycletime;
+	int oldestactivetask;
 	
 	public KanbanDashboardEntity() {
 		super();
@@ -15,10 +19,10 @@ public class KanbanDashboardEntity {
 	public KanbanDashboardEntity(int id, int kanbanId, double avgLeadTime, double avgCycleTime, int oldestActiveTask) {
 		super();
 		this.id = id;
-		this.kanbanId = kanbanId;
-		this.avgLeadTime = avgLeadTime;
-		this.avgCycleTime = avgCycleTime;
-		this.oldestActiveTask = oldestActiveTask;
+		this.kanbanid = kanbanId;
+		this.avgleadtime = avgLeadTime;
+		this.avgcycletime = avgCycleTime;
+		this.oldestactivetask = oldestActiveTask;
 	}
 
 	public int getId() {
@@ -30,34 +34,34 @@ public class KanbanDashboardEntity {
 	}
 	
 	public int getKanbanId() {
-		return kanbanId;
+		return kanbanid;
 	}
 	
 	public void setKanbanId(int kanbanId) {
-		this.kanbanId = kanbanId;
+		this.kanbanid = kanbanId;
 	}
 	
 	public double getAvgLeadTime() {
-		return avgLeadTime;
+		return avgleadtime;
 	}
 	
 	public void setAvgLeadTime(double avgLeadTime) {
-		this.avgLeadTime = avgLeadTime;
+		this.avgleadtime = avgLeadTime;
 	}
 	
 	public double getAvgCycleTime() {
-		return avgCycleTime;
+		return avgcycletime;
 	}
 	
 	public void setAvgCycleTime(double avgCycleTime) {
-		this.avgCycleTime = avgCycleTime;
+		this.avgcycletime = avgCycleTime;
 	}
 	
 	public int getOldestActiveTask() {
-		return oldestActiveTask;
+		return oldestactivetask;
 	}
 	
 	public void setOldestActiveTask(int oldestActiveTask) {
-		this.oldestActiveTask = oldestActiveTask;
+		this.oldestactivetask = oldestActiveTask;
 	}
 }

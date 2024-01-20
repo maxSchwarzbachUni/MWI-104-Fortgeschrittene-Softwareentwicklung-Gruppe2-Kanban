@@ -17,12 +17,11 @@ public class TaskReport {
 		super();
 	}
 
-	public TaskReport(TaskReportId id, int taskId, int stageId, int kanbanboardId, Date lastChange, Date creationDate,
+	public TaskReport(TaskReportId id, int taskId, int kanbanboardId, Date lastChange, Date creationDate,
 			Date closedDate) {
 		super();
 		this.id = id;
 		this.taskId = taskId;
-		this.stageId = stageId;
 		this.kanbanboardId = kanbanboardId;
 		this.lastChange = lastChange;
 		this.creationDate = creationDate;
