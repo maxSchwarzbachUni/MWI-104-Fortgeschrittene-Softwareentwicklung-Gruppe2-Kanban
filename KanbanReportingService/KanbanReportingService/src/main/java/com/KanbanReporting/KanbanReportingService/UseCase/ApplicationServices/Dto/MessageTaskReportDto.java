@@ -1,4 +1,4 @@
-package com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices;
+package com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.Dto;
 
 import java.sql.Date;
 

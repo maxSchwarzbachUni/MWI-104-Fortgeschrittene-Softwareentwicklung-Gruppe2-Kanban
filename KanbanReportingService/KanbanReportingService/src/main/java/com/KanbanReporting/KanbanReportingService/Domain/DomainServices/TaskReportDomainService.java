@@ -3,13 +3,15 @@ package com.KanbanReporting.KanbanReportingService.Domain.DomainServices;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.MultiValueMap;
+
 import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.KanbanDashboard;
 import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.TaskReport;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.KanbanDashboardEntity;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.TaskReportEntity;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.KanbanDashboardFactory;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.TaskReportFactory;
-import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.MessageTaskReportDto;
+import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.Dto.MessageTaskReportDto;
 
 public class TaskReportDomainService {
 
@@ -21,11 +23,6 @@ public class TaskReportDomainService {
 		this.kanbanDashboardFactory = kanbanDashboardFactory;
 	}
 	
-	public void importMessageTaskReportData(MessageTaskReportDto messageTaskReportData) {
-		// Objekt Mappen 
-		// Objekt in DB importieren
-	}
-
 	public TaskReport convertTaskReportEntityToAggregate(TaskReportEntity taskReportEntity) {
 		return taskReportFactory.ConvertToAggregate(taskReportEntity);
 	}
@@ -46,5 +43,13 @@ public class TaskReportDomainService {
 
 	public KanbanDashboard convertKanbanDashboardEntityToAggregate(KanbanDashboardEntity kanbanDashboardEntity) {
 		return kanbanDashboardFactory.ConvertToAggregate(kanbanDashboardEntity);
+	}
+
+	public List<KanbanDashboard> convertKanbanDashboardEntityListToAggregate(List<KanbanDashboardEntity> kanbanDashboardEntityList) {
+		List<KanbanDashboard> resultList = new ArrayList<KanbanDashboard>();
+		for (KanbanDashboardEntity kanbanDashboardEntity : kanbanDashboardEntityList) {
+			resultList.add(kanbanDashboardFactory.ConvertToAggregate(kanbanDashboardEntity));
+		}
+		return resultList;
 	}
 }

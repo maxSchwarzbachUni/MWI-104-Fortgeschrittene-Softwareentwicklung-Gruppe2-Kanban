@@ -8,4 +8,7 @@ public interface ITaskReportDataRepository {
 
 	Iterable<TaskReportEntity> getAllTasksReportsOfKanbanId(int id);
 
+	TaskReportEntity saveTaskReport(TaskReportEntity taskReportEntity);
+	
+	TaskReportEntity getTaskReportByTaskId(int id);
 }

@@ -11,11 +11,13 @@ import com.KanbanReporting.KanbanReportingService.Domain.Entities.TaskReportEnti
 
 @Component
 public class TaskReportDataRepository implements ITaskReportDataRepository {
-	private JdbcTaskReportDataRepository jdbcTaskReportDataRepository;
+	private final JdbcTaskReportDataRepository jdbcTaskReportDataRepository;
+	private final JdbcTaskReportByTaskIdRepository jdbcTaskReportByTaskIdRepository;
 	
 	@Autowired
-	public TaskReportDataRepository(JdbcTaskReportDataRepository jdbcTaskReportDataRepository) {
+	public TaskReportDataRepository(JdbcTaskReportDataRepository jdbcTaskReportDataRepository, JdbcTaskReportByTaskIdRepository jdbcTaskReportByTaskIdRepository) {
 		this.jdbcTaskReportDataRepository = jdbcTaskReportDataRepository;
+		this.jdbcTaskReportByTaskIdRepository = jdbcTaskReportByTaskIdRepository;
 	}
 
 	@Override
@@ -23,6 +25,15 @@ public class TaskReportDataRepository implements ITaskReportDataRepository {
 		Optional<TaskReportEntity> taskReportEntity = jdbcTaskReportDataRepository.findById(id);
 		if(taskReportEntity.isPresent()) {
 			return taskReportEntity.get();
+		}
+		return null;
+	}
+	
+	@Override
+	public TaskReportEntity getTaskReportByTaskId(int id) {		
+		List<TaskReportEntity> taskReportEntityList = jdbcTaskReportByTaskIdRepository.findTaskReportdByTaskid(id);
+		if(!taskReportEntityList.isEmpty()) {
+			return taskReportEntityList.get(taskReportEntityList.size()-1);
 		}
 		return null;
 	}
@@ -41,4 +52,13 @@ public class TaskReportDataRepository implements ITaskReportDataRepository {
         } 
         return null;	
 	}
+
+	@Override
+	public TaskReportEntity saveTaskReport(TaskReportEntity taskReportEntity) {
+		if(taskReportEntity != null) {
+			return jdbcTaskReportDataRepository.save(taskReportEntity);			
+		}
+		return null;
+	}
+	
 }
