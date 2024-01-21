@@ -3,14 +3,17 @@ DROP TABLE IF EXISTS KanbanDashboard;
 
 CREATE TABLE KanbanDashboard(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    kanbanId INT,
-    avgLeadTime DOUBLE,
-    avgCycleTime DOUBLE,
-    oldestActiveTask INT
+    kanbanid INT,
+    avgleadtime DOUBLE,
+    avgIdleTime DOUBLE,
+    avgunfinishedprocessingtime DOUBLE, 
+    oldestactivetask INT,
+    oldestactivetasktime DOUBLE,
+    dashboardcreationdate Date
 );
 
-INSERT INTO KanbanDashboard(kanbanId, avgLeadTime, avgCycleTime, oldestActiveTask) 
-VALUES (1, 60, 20, 4);
+INSERT INTO KanbanDashboard(kanbanid, avgleadtime, avgIdleTime, avgunfinishedprocessingtime, oldestactivetask, oldestactivetasktime, dashboardcreationdate) 
+VALUES (1, 60, 20, 20, 4, 50, '2024-01-01');
 
 CREATE TABLE TaskReport(
     id INT AUTO_INCREMENT PRIMARY KEY,
