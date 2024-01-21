@@ -149,7 +149,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=2",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=99",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -164,7 +164,7 @@
 									"query": [
 										{
 											"key": "stageId",
-											"value": "2"
+											"value": "99"
 										}
 									]
 								}
@@ -387,6 +387,28 @@
 							"path": [
 								"kanbanboard_reporting",
 								"kanbanboardreport",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kanbanreport History for KanbanboardId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/kanbanboard_reporting/kanbanboardreport/history/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"kanbanboard_reporting",
+								"kanbanboardreport",
+								"history",
 								"1"
 							]
 						}
