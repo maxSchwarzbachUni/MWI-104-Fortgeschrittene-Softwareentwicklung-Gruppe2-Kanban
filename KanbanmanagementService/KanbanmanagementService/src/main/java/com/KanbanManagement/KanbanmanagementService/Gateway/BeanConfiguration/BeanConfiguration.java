@@ -1,5 +1,6 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.BeanConfiguration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +21,8 @@ import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.
 
 @Configuration
 public class BeanConfiguration {
+	 @Value(value = "${kommunikationsmodus}")
+	 private String kommunikationsmodus = "platzhalter";
 	
 	 @Bean
 	 TaskmanagementApplicationService taskmanagementApplicationService(ITaskRepository iTaskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
