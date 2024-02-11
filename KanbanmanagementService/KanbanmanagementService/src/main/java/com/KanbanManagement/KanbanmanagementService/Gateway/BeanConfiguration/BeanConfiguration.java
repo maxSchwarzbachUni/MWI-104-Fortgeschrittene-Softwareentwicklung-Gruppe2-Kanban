@@ -8,6 +8,9 @@ import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.StageD
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.KafkaMessageEmitterService;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.RabbitMqMessageEmitterService;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.TaskNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.JdbcStageEntityRepository;
@@ -16,22 +19,28 @@ import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.JdbcTas
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.StageRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.TaskRepository;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.StageApplicationService;
-import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
 
 @Configuration
-public class BeanConfiguration {
-	 @Value(value = "${kommunikationsmodus}")
-	 private String kommunikationsmodus = "platzhalter";
-	
+public class BeanConfiguration {	
 	 @Bean
 	 TaskmanagementApplicationService taskmanagementApplicationService(ITaskRepository iTaskRepository, TaskmanagementDomainService taskmanagementDomainService, IStageRepository stageRepository) {
 	        return new TaskmanagementApplicationService(iTaskRepository, taskmanagementDomainService, stageRepository);
 	 }
 	 
 	 @Bean 
-	 TaskmanagementDomainService taskmanagementDomainService() {
-		 return new TaskmanagementDomainService(new TaskNotificationEmitterService(), new TaskFactory());
+	 TaskmanagementDomainService taskmanagementDomainService(RabbitMqMessageEmitterService rabbitMqMessageEmitterService, KafkaMessageEmitterService kafkaMessageEmitterService) {
+		 return new TaskmanagementDomainService(new TaskNotificationEmitterService(rabbitMqMessageEmitterService, kafkaMessageEmitterService), new TaskFactory());
+	 }
+	 
+	 @Bean 
+	 RabbitMqMessageEmitterService rabbitMqMessageEmitterService() {
+		 return new RabbitMqMessageEmitterService();
+	 }
+	 
+	 @Bean
+	 KafkaMessageEmitterService kafkaMessageEmitterService() {
+		 return new KafkaMessageEmitterService();
 	 }
 	 
 	 @Bean

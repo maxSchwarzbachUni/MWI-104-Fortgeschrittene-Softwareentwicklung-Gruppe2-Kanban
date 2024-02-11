@@ -1,4 +1,4 @@
-package com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices;
+package com.KanbanReporting.KanbanReportingService.Gateway.MessageServices;
 
 import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.MessageDtoHandlingService;
 import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.TaskReportDomainService;
@@ -10,38 +10,21 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import com.rabbitmq.client.Delivery;
 
-public class NotificationReceiverService {
+public class RabbitMqNotificationReceiverService {
 	
 	private static final String EXCHANGE_NAME = "task_update_exchange";
 	ObjectMapper objectmapper;
-	CommunicationFramework communicationFramework;
 	MessageDtoHandlingService messageDtoHandlingService;
 	
-	public NotificationReceiverService(CommunicationFramework communicationFramework, MessageDtoHandlingService messageDtoHandlingService) {
-		this.communicationFramework = communicationFramework;
+	public RabbitMqNotificationReceiverService(MessageDtoHandlingService messageDtoHandlingService) {
 		this.messageDtoHandlingService = messageDtoHandlingService;
 		objectmapper = new ObjectMapper();
 	}
 	
 	public void ReceiveTaskChangedNotification() {
-		switch (communicationFramework) {
-		case RabbitMQ:  {
-			ReceiveTaskChangedNotificationRabbitMq();
-			break;
-		}
-		case Kafka:  {
-			ReceiveTaskChangedNotificationKafka();
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + communicationFramework);
-		}
+		ReceiveTaskChangedNotificationRabbitMq();
 	}
 	
-    private void ReceiveTaskChangedNotificationKafka(){
-    	// TODO 
-	}
-
 	// In Anlehnung an: https://www.rabbitmq.com/tutorials/tutorial-five-go.html#:~:text=The%20messages%20will%20be%20sent,%22.
 	public void ReceiveTaskChangedNotificationRabbitMq() {
         try { 
@@ -52,7 +35,7 @@ public class NotificationReceiverService {
             channel.exchangeDeclare(EXCHANGE_NAME, "topic");
             String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, EXCHANGE_NAME, "task.update.*");
-            System.out.println("Waiting for messages.");
+            System.out.println("Waiting for messages with RabbitMQ.");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 HandleDeliverCallback(delivery);
@@ -67,7 +50,7 @@ public class NotificationReceiverService {
 	private void HandleDeliverCallback(Delivery delivery) {
 		try {
 			String message = new String(delivery.getBody(), "UTF-8");
-		    System.out.println("Received new message '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+		    System.out.println("Received new message from rabbitMQ: '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
 		    MessageTaskReportDto messageTaskReportData = objectmapper.readValue(message, MessageTaskReportDto.class);
 			messageDtoHandlingService.ImportMessageTaskReportData(messageTaskReportData);
 		} 

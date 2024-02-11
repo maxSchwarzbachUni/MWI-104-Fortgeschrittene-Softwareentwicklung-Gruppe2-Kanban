@@ -13,8 +13,9 @@ import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.CommunicationType;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.TaskNotificationEmitterService;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskManagementKonstanten;
-import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskNotificationEmitterService;
 
 public class TaskmanagementDomainService {
 	
@@ -26,13 +27,13 @@ public class TaskmanagementDomainService {
 		this.taskFactory = taskFactory; 
 	}
 	
-	public void createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid, Boolean updateToLastStage) {
+	public void createAndSendTaskUpdateNotification(TaskEntity taskToUpdate, int kanbanid, Boolean updateToLastStage, CommunicationType communicationType) {
 		try {
 			Date lastchangeDate = taskToUpdate.getLastchangeDate();
 			Date creationdate = taskToUpdate.getCreationdate();
 			TaskId taskId = new TaskId(taskToUpdate.getId());
 			TaskReportData messageTaskObject = new TaskReportData(taskId.getId(), creationdate, lastchangeDate, kanbanid, updateToLastStage);			
-			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject);
+			taskChangedNotificationEmitterService.EmitTaskChangedNotificationRabbitMq(messageTaskObject, communicationType);
 		} 
 		catch (Exception e) {
 			System.out.println("Fehler bei Update von Task! Meldung: /n" + e.getMessage());

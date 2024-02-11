@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.KanbanManagement.KanbanmanagementService.Gateway.BeanConfiguration.MessageProducer;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.KafkaMessageEmitterService;
 
 @RestController
 public class HelloController {
@@ -28,7 +28,7 @@ public class HelloController {
 	}
 	
     @Autowired
-    private MessageProducer messageProducer;
+    private KafkaMessageEmitterService messageProducer;
 
     @PostMapping("/send")
     public String sendMessage(@RequestParam("message") String message) {

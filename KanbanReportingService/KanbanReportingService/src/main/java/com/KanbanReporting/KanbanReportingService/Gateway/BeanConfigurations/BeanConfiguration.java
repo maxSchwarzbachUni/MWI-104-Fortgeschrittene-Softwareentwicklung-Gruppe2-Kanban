@@ -7,6 +7,7 @@ import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.MessageD
 import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.TaskReportDomainService;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.KanbanDashboardFactory;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.TaskReportFactory;
+import com.KanbanReporting.KanbanReportingService.Gateway.MessageServices.RabbitMqNotificationReceiverService;
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.IKanbanDashboardRepository;
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.ITaskReportDataRepository;
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.JdbcKanbanDashboardByKanbanIdRepository;
@@ -15,16 +16,13 @@ import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.JdbcTaskR
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.JdbcTaskReportDataRepository;
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.KanbanDashboardRepository;
 import com.KanbanReporting.KanbanReportingService.Gateway.Repositories.TaskReportDataRepository;
-import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.CommunicationFramework;
-import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.NotificationReceiverService;
 import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.TaskReportApplicationService;
 
 @Configuration
 public class BeanConfiguration {
 	 @Bean 
-	 NotificationReceiverService notificationReceiverService(MessageDtoHandlingService messageDtoHandlingService) {
-		 //TODO herausfinden, wie man hier Kommandozeilenargumente bekommt
-		 return new NotificationReceiverService(CommunicationFramework.RabbitMQ, messageDtoHandlingService);
+	 RabbitMqNotificationReceiverService rabbitMqNotificationReceiverService(MessageDtoHandlingService messageDtoHandlingService) {
+		 return new RabbitMqNotificationReceiverService(messageDtoHandlingService);
 	 }
 	 
 	 @Bean 
@@ -48,11 +46,11 @@ public class BeanConfiguration {
 	 
 	 @Bean
 	 ITaskReportDataRepository iTaskReportDataRepository(JdbcTaskReportDataRepository jdbcTaskReportDataRepository, JdbcTaskReportByTaskIdRepository jdbcTaskReportByTaskIdRepository) {
-	        return new TaskReportDataRepository(jdbcTaskReportDataRepository, jdbcTaskReportByTaskIdRepository);
+	     return new TaskReportDataRepository(jdbcTaskReportDataRepository, jdbcTaskReportByTaskIdRepository);
 	 }
 	 
 	 @Bean
 	 IKanbanDashboardRepository iKanbanDashboardRepository(JdbcKanbanDashboardRepository jdbcKanbanDashboardRepository, JdbcKanbanDashboardByKanbanIdRepository jdbcKanbanDashboardByKanbanIdRepository) {
-	        return new KanbanDashboardRepository(jdbcKanbanDashboardRepository, jdbcKanbanDashboardByKanbanIdRepository);
+	     return new KanbanDashboardRepository(jdbcKanbanDashboardRepository, jdbcKanbanDashboardByKanbanIdRepository);
 	 }
 }

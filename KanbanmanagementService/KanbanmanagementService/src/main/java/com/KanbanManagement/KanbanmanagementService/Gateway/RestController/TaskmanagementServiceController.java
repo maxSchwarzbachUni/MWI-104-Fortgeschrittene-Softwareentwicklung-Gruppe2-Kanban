@@ -1,7 +1,5 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.RestController;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.CommunicationType;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.StageApplicationService;
 import com.KanbanManagement.KanbanmanagementService.UseCase.ApplicationServices.TaskmanagementApplicationService;
 
@@ -42,21 +41,34 @@ public class TaskmanagementServiceController {
 	}
 	
 	@PostMapping("tasks")
-	public ResponseEntity<Object> PostNewTask(@RequestBody Task task) {
+	public ResponseEntity<Object> PostNewTask(@RequestBody Task task, @RequestParam(value = "communicationType", defaultValue = "rabbitMQ") String communicationTypeString) {
 		System.out.println("Post new task");
-		return taskmanagementApplicationService.HandlePostNewTask(task);
+		return taskmanagementApplicationService.HandlePostNewTask(task, ConvertStringToCommunicationType(communicationTypeString));
+	}
+	
+	private CommunicationType ConvertStringToCommunicationType(String communicationTypeString) {
+		switch (communicationTypeString) {
+		case "kafka": {
+			return CommunicationType.kafka; 
+		}
+		case "rabbitMQ": {
+			return CommunicationType.rabbitMQ;
+		}
+		default:
+			return CommunicationType.rabbitMQ;
+		}
 	}
 	
 	@PutMapping("tasks/{id}/stage")
-	public ResponseEntity<Object> UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId) {
+	public ResponseEntity<Object> UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId, @RequestParam(value = "communicationType", defaultValue = "rabbitMQ") String communicationTypeString) {
 		System.out.println("Update Task " + id + " stage to " + stageId );
-		return taskmanagementApplicationService.HandleUpdateAssignedStage(id, stageId);
+		return taskmanagementApplicationService.HandleUpdateAssignedStage(id, stageId, ConvertStringToCommunicationType(communicationTypeString));
 	}
 	
 	@PutMapping("tasks/update")
-	public ResponseEntity<Object> UpdateTaskField(@RequestParam int id, @RequestParam String fieldname, @RequestParam Object value){
+	public ResponseEntity<Object> UpdateTaskField(@RequestParam int id, @RequestParam String fieldname, @RequestParam Object value, @RequestParam(value = "communicationType", defaultValue = "rabbitMQ") String communicationTypeString){
 		System.out.println("Update Task " + id + " field " + fieldname + " to " + value);	
-		return taskmanagementApplicationService.HandleUpdateTaskField(id, fieldname, value);
+		return taskmanagementApplicationService.HandleUpdateTaskField(id, fieldname, value, ConvertStringToCommunicationType(communicationTypeString));
 	}
 	
 	@PostMapping("stages")
@@ -75,13 +87,5 @@ public class TaskmanagementServiceController {
 	public ResponseEntity<Object> GetStageById(@PathVariable int id) {
 		System.out.println("Get Stage with id " + id);
 		return stagemanagementApplicationService.HandleGetStageById(id);
-	}
-	
-	@GetMapping("raiseNotification")
-	public ResponseEntity<Object> raiseRabbitMqNotificiation() {
-//		TaskChangedNotificationEmitterService taskChangedNotificationService = new TaskChangedNotificationEmitterService();
-//		taskChangedNotificationService.EmitTaskChangedNotificationRabbitMq("Test");
-		return new ResponseEntity<Object>("Erfolg.", HttpStatus.OK);
-	}
-	
+	}	
 }

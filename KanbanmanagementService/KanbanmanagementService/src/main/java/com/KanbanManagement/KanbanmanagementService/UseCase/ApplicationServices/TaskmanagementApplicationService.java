@@ -10,6 +10,7 @@ import com.KanbanManagement.KanbanmanagementService.Domain.Entities.StageEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.Entities.TaskEntity;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.StageId;
 import com.KanbanManagement.KanbanmanagementService.Domain.ValueObjects.TaskId;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.CommunicationType;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.IStageRepository;
 import com.KanbanManagement.KanbanmanagementService.Gateway.Repositories.ITaskRepository;
 
@@ -38,8 +39,7 @@ public class TaskmanagementApplicationService {
 		return new ResponseEntity<Object> (taskmanagementDomainService.ConvertTaskToAggregate(foundTaskEntity), HttpStatus.OK);
 	}
 
-	// RabbitMQ Message
-	public ResponseEntity<Object> HandleUpdateAssignedStage(int id, int stageId) {
+	public ResponseEntity<Object> HandleUpdateAssignedStage(int id, int stageId, CommunicationType communicationType) {
 		TaskEntity taskToUpdate  = taskRepository.findById(new TaskId(id));
 		
 		DomainResult checkTaskResult = taskmanagementDomainService.checkTaskEntity(taskToUpdate);
@@ -62,13 +62,13 @@ public class TaskmanagementApplicationService {
 		
 		Boolean updateToLastStage = taskmanagementDomainService.UpdateWasToFinalLastStageOfBoard(stageRepository.getLastStage(stageEntity.getKanbanid()), oldStageId, stageEntity.getId());
 		
-		taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate, stageEntity.getKanbanid(), updateToLastStage);
+		taskmanagementDomainService.createAndSendTaskUpdateNotification(taskToUpdate, stageEntity.getKanbanid(), updateToLastStage, communicationType);
 		String resultMessage = TaskManagementKonstanten.task_udpate_succesful + " for id " + id + " from stage " + oldStageId + " to stage " + taskToSave.getAssignedstage();
 		return new ResponseEntity<Object>(resultMessage, HttpStatus.OK);
 	}
 	
 	// RabbitMQ Message
-	public ResponseEntity<Object> HandlePostNewTask(Task taskToCreate) {
+	public ResponseEntity<Object> HandlePostNewTask(Task taskToCreate, CommunicationType communicationType) {
 		DomainResult checkTaskResult = taskmanagementDomainService.validateNewTaskData(taskToCreate);
 		if(!checkTaskResult.ActionSuccesful) {
 			return new ResponseEntity<Object>(checkTaskResult.Message, checkTaskResult.statusCode);
@@ -82,12 +82,11 @@ public class TaskmanagementApplicationService {
 		
 		StageEntity stageEntity = stageRepository.findById(new StageId(taskEntityToSave.getAssignedstage()));
 		Boolean updateToLastStage = taskmanagementDomainService.UpdateWasToFinalLastStageOfBoard(stageRepository.getLastStage(stageEntity.getKanbanid()), taskToCreate.getAssignedstage().getId(), stageEntity.getId());
-		taskmanagementDomainService.createAndSendTaskUpdateNotification(resultingTaskEntity, stageEntity.getKanbanid(), updateToLastStage);
+		taskmanagementDomainService.createAndSendTaskUpdateNotification(resultingTaskEntity, stageEntity.getKanbanid(), updateToLastStage, communicationType);
 		return new ResponseEntity<Object>("Task saved with id " + resultingTaskEntity.getId(), HttpStatus.OK);
 	}
 
-	// RabbitMQ Message
-	public ResponseEntity<Object> HandleUpdateTaskField(int id, String fieldname, Object value) {
+	public ResponseEntity<Object> HandleUpdateTaskField(int id, String fieldname, Object value, CommunicationType communicationType) {
 		TaskEntity taskToUpdate = taskRepository.findById(new TaskId(id));
 		if(taskToUpdate == null) {
 			return new ResponseEntity<Object>("Task to update was not found with id " + id, HttpStatus.NOT_FOUND);
@@ -100,7 +99,7 @@ public class TaskmanagementApplicationService {
 			
 			StageEntity stageEntity = stageRepository.findById(new StageId(taskEntityToSave.getAssignedstage()));
 			Boolean updateToLastStage = taskmanagementDomainService.UpdateWasToFinalLastStageOfBoard(stageRepository.getLastStage(stageEntity.getKanbanid()), oldStageId, stageEntity.getId());
-			taskmanagementDomainService.createAndSendTaskUpdateNotification(taskEntityToSave, stageEntity.getKanbanid(), updateToLastStage);
+			taskmanagementDomainService.createAndSendTaskUpdateNotification(taskEntityToSave, stageEntity.getKanbanid(), updateToLastStage, communicationType);
 			return new ResponseEntity<Object>("Task with id " + taskEntityToSave.getId() + " updated value of field " + fieldname + " to " + value , HttpStatus.OK);
 		}
 		catch (Exception e) {

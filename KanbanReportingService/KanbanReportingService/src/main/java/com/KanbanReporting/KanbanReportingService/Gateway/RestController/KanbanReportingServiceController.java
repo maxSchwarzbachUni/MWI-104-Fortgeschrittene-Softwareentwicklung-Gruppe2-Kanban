@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.NotificationReceiverService;
+import com.KanbanReporting.KanbanReportingService.Gateway.MessageServices.RabbitMqNotificationReceiverService;
 import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.TaskReportApplicationService;
 
 @RestController
 @RequestMapping("/kanbanboard_reporting")
 public class KanbanReportingServiceController {
-	NotificationReceiverService notificationReceiverService;
+	RabbitMqNotificationReceiverService notificationReceiverService;
 	TaskReportApplicationService taskReportApplicationService;
 	
-	public KanbanReportingServiceController(NotificationReceiverService notificationReceiverService, TaskReportApplicationService taskReportApplicationService) {
+	public KanbanReportingServiceController(RabbitMqNotificationReceiverService notificationReceiverService, TaskReportApplicationService taskReportApplicationService) {
 		this.notificationReceiverService = notificationReceiverService;
 		notificationReceiverService.ReceiveTaskChangedNotification();
 		this.taskReportApplicationService = taskReportApplicationService;
