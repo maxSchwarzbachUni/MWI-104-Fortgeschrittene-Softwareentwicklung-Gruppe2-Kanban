@@ -10,7 +10,6 @@ import com.KanbanReporting.KanbanReportingService.Domain.ValueObjects.TaskReport
 public class TaskReport {
 	TaskReportId id; 
 	int taskId;
-//	int stageId;
 	int kanbanboardId;
 	Date lastChange; 
 	Date creationDate;
@@ -63,14 +62,6 @@ public class TaskReport {
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
 	}
-	
-//	public int getStageId() {
-//		return stageId;
-//	}
-//	
-//	public void setStageId(int stageId) {
-//		this.stageId = stageId;
-//	}
 	
 	public int getKanbanboardId() {
 		return kanbanboardId;

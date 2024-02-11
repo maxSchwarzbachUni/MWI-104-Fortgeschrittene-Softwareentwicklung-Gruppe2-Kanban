@@ -1,12 +1,10 @@
 package com.KanbanReporting.KanbanReportingService.Gateway.Repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.KanbanDashboard;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.KanbanDashboardEntity;
 
 @Component

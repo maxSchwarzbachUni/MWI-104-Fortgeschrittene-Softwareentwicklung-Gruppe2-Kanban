@@ -9,7 +9,6 @@ public class MessageTaskReportDto {
 	int kanbanid;
 	Boolean updateToLastStage;
 	
-	
 	public MessageTaskReportDto() {
 		super();
 	}

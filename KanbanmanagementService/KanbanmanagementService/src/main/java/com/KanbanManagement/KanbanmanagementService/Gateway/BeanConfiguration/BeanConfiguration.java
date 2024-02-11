@@ -1,6 +1,5 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.BeanConfiguration;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

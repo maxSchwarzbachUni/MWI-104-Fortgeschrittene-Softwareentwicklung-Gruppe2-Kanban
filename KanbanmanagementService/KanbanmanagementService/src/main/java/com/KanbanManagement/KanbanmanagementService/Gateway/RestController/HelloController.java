@@ -1,7 +1,6 @@
 package com.KanbanManagement.KanbanmanagementService.Gateway.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +20,8 @@ public class HelloController {
 	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return String.format("Hello %s!", name);
 	}
-  
-	@GetMapping("Test")
-	public String test() {
-		return "das hier ist ein Test";
-	}
 	
+	// Test for kafka communication
     @Autowired
     private KafkaMessageEmitterService messageProducer;
 

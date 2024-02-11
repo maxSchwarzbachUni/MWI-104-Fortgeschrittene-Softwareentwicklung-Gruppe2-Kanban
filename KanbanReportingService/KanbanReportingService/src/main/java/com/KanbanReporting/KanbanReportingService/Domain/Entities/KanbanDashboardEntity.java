@@ -5,8 +5,6 @@ import java.sql.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.KanbanReporting.KanbanReportingService.Domain.ValueObjects.KanbanDashboardId;
-
 @Table (name = "KANBANDASHBOARD")
 public class KanbanDashboardEntity {
 	@Id

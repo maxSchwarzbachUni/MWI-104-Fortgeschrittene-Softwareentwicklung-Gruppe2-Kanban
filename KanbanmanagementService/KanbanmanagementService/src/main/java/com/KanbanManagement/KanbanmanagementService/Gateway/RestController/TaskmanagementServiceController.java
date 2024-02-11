@@ -46,19 +46,6 @@ public class TaskmanagementServiceController {
 		return taskmanagementApplicationService.HandlePostNewTask(task, ConvertStringToCommunicationType(communicationTypeString));
 	}
 	
-	private CommunicationType ConvertStringToCommunicationType(String communicationTypeString) {
-		switch (communicationTypeString) {
-		case "kafka": {
-			return CommunicationType.kafka; 
-		}
-		case "rabbitMQ": {
-			return CommunicationType.rabbitMQ;
-		}
-		default:
-			return CommunicationType.rabbitMQ;
-		}
-	}
-	
 	@PutMapping("tasks/{id}/stage")
 	public ResponseEntity<Object> UpdateAssignedStage(@PathVariable int id, @RequestParam(value = "stageId") int stageId, @RequestParam(value = "communicationType", defaultValue = "rabbitMQ") String communicationTypeString) {
 		System.out.println("Update Task " + id + " stage to " + stageId );
@@ -88,4 +75,17 @@ public class TaskmanagementServiceController {
 		System.out.println("Get Stage with id " + id);
 		return stagemanagementApplicationService.HandleGetStageById(id);
 	}	
+	
+	private CommunicationType ConvertStringToCommunicationType(String communicationTypeString) {
+		switch (communicationTypeString) {
+		case "kafka": {
+			return CommunicationType.kafka; 
+		}
+		case "rabbitMQ": {
+			return CommunicationType.rabbitMQ;
+		}
+		default:
+			return CommunicationType.rabbitMQ;
+		}
+	}
 }

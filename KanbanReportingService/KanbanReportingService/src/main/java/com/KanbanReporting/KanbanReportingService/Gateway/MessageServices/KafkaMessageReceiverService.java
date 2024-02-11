@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.MessageDtoHandlingService;
 import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.Dto.MessageTaskReportDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rabbitmq.client.Delivery;
 
 @Component
 public class KafkaMessageReceiverService {

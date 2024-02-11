@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.TaskReportData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// Kafka Coding in Anlehnung an:
+// https://medium.com/@abhishekranjandev/a-comprehensive-guide-to-integrating-kafka-in-a-spring-boot-application-a4b912aee62e
+// https://spring.io/projects/spring-kafka#overview
+// https://www.baeldung.com/spring-kafka
+// https://github.com/spring-projects/spring-kafka/tree/main/samples
+
 @Component
 public class KafkaMessageEmitterService implements IMessageEmitterService {
 	@Autowired(required=false)

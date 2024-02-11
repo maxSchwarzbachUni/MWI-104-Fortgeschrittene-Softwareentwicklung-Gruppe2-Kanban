@@ -67,7 +67,6 @@ public class TaskmanagementApplicationService {
 		return new ResponseEntity<Object>(resultMessage, HttpStatus.OK);
 	}
 	
-	// RabbitMQ Message
 	public ResponseEntity<Object> HandlePostNewTask(Task taskToCreate, CommunicationType communicationType) {
 		DomainResult checkTaskResult = taskmanagementDomainService.validateNewTaskData(taskToCreate);
 		if(!checkTaskResult.ActionSuccesful) {

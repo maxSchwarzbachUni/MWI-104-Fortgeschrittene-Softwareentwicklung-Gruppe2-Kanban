@@ -1,7 +1,6 @@
 package com.KanbanReporting.KanbanReportingService.Gateway.MessageServices;
 
 import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.MessageDtoHandlingService;
-import com.KanbanReporting.KanbanReportingService.Domain.DomainServices.TaskReportDomainService;
 import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.Dto.MessageTaskReportDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
@@ -26,7 +25,7 @@ public class RabbitMqNotificationReceiverService {
 	}
 	
 	// In Anlehnung an: https://www.rabbitmq.com/tutorials/tutorial-five-go.html#:~:text=The%20messages%20will%20be%20sent,%22.
-	public void ReceiveTaskChangedNotificationRabbitMq() {
+	private void ReceiveTaskChangedNotificationRabbitMq() {
         try { 
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");

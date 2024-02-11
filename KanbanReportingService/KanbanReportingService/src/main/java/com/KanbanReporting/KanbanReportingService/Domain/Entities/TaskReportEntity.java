@@ -9,7 +9,6 @@ public class TaskReportEntity {
 	@Id
 	int id; 
 	int taskid;
-//	int stageId;
 	int kanbanboardid;
 	Date lastchange; 
 	Date creationdate;
@@ -22,7 +21,6 @@ public class TaskReportEntity {
 	public TaskReportEntity(int taskId, int kanbanboardId, Date lastChange, Date creationDate, Date closedDate) {
 		super();
 		this.taskid = taskId;
-//		this.stageId = stageId;
 		this.kanbanboardid = kanbanboardId;
 		this.lastchange = lastChange;
 		this.creationdate = creationDate;
@@ -33,7 +31,6 @@ public class TaskReportEntity {
 		super();
 		this.id = id;
 		this.taskid = taskId;
-//		this.stageId = stageId;
 		this.kanbanboardid = kanbanboardId;
 		this.lastchange = lastChange;
 		this.creationdate = creationDate;
@@ -55,14 +52,6 @@ public class TaskReportEntity {
 	public void setTaskId(int taskId) {
 		this.taskid = taskId;
 	}
-	
-//	public int getStageId() {
-//		return stageId;
-//	}
-//	
-//	public void setStageId(int stageId) {
-//		this.stageId = stageId;
-//	}
 	
 	public int getKanbanboardId() {
 		return kanbanboardid;

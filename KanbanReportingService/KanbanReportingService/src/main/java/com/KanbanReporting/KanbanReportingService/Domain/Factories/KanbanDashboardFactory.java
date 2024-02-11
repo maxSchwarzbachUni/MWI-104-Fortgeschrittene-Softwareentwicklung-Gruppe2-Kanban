@@ -1,7 +1,5 @@
 package com.KanbanReporting.KanbanReportingService.Domain.Factories;
 
-import java.sql.Date;
-
 import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.KanbanDashboard;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.KanbanDashboardEntity;
 import com.KanbanReporting.KanbanReportingService.Domain.ValueObjects.KanbanDashboardId;

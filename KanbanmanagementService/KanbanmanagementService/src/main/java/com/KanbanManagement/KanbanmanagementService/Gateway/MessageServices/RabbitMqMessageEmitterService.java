@@ -6,13 +6,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+// RabbitMQ Coding in Anlehnung an: https://www.rabbitmq.com/tutorials/tutorial-five-java.html
 public class RabbitMqMessageEmitterService implements IMessageEmitterService {
 
 	private static final String EXCHANGE_NAME = "task_update_exchange";	
 	
 	public void sendMessage(TaskReportData messageTaskObject) {
-		// https://www.rabbitmq.com/tutorials/tutorial-five-go.html#:~:text=The%20messages%20will%20be%20sent,%22.
-		
+
 	    ConnectionFactory factory = new ConnectionFactory();
 	    factory.setHost("localhost");
 	    try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {

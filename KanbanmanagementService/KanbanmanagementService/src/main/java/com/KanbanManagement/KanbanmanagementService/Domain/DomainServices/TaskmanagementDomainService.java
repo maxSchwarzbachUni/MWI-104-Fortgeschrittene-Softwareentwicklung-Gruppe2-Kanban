@@ -2,10 +2,8 @@ package com.KanbanManagement.KanbanmanagementService.Domain.DomainServices;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.Task;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.TaskReportData;

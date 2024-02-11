@@ -3,15 +3,12 @@ package com.KanbanReporting.KanbanReportingService.Domain.DomainServices;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.MultiValueMap;
-
 import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.KanbanDashboard;
 import com.KanbanReporting.KanbanReportingService.Domain.Aggregates.TaskReport;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.KanbanDashboardEntity;
 import com.KanbanReporting.KanbanReportingService.Domain.Entities.TaskReportEntity;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.KanbanDashboardFactory;
 import com.KanbanReporting.KanbanReportingService.Domain.Factories.TaskReportFactory;
-import com.KanbanReporting.KanbanReportingService.UseCase.ApplicationServices.Dto.MessageTaskReportDto;
 
 public class TaskReportDomainService {
 

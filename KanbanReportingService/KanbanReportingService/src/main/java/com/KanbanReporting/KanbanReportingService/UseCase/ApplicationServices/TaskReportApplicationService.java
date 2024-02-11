@@ -74,18 +74,4 @@ public class TaskReportApplicationService {
 			return new ResponseEntity<Object>("Exception! Message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-//	public ResponseEntity<Object> GetTaskReportsForStageById(int stageId) {
-//		try {
-//			taskReportDomainService.checkIdForValidity(stageId);
-//			Iterable<TaskReportEntity> taskReportEntities = taskReportDataRepository.getTaskReportEntitiesForStage(stageId);
-//			if(taskReportEntities != null) {
-//				return new ResponseEntity<Object>(taskReportDomainService.convertTaskReportEntityListToAggregate(taskReportEntities), HttpStatus.OK);
-//			}
-//			return new ResponseEntity<Object>("No Taskreport data found for stageId " + stageId, HttpStatus.NOT_FOUND);
-//		} catch (Exception e) {
-//			return new ResponseEntity<Object>("Exception! Message: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
-
 }
