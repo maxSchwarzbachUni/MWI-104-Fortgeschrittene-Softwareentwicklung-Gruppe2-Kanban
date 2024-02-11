@@ -38,7 +38,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/2",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/8",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -47,51 +47,25 @@
 									"path": [
 										"kanbanboard_management",
 										"tasks",
-										"2"
+										"8"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Post new Task",
+							"name": "Post new Task RabbitMQ",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "name",
-											"value": "test",
-											"type": "text"
-										},
-										{
-											"key": "assignedstage",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "description",
-											"value": "das ist eine Testdescription",
-											"type": "text"
-										},
-										{
-											"key": "remainingworkload",
-											"value": "10",
-											"type": "text"
-										},
-										{
-											"key": "tasktype",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "priority",
-											"value": "2",
-											"type": "text"
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Abschlusspräsentation 22.01\",\r\n    \"assignedstage\": 1,\r\n    \"description\": \"das ist ein Test\",\r\n    \"remainingworkload\": 10,\r\n    \"tasktype\": 1,\r\n    \"priority\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
 								"url": {
 									"raw": "http://localhost:8080/kanbanboard_management/tasks",
@@ -109,12 +83,76 @@
 							"response": []
 						},
 						{
-							"name": "Update specific Task field",
+							"name": "Post new Task Kafka",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Abschlusspräsentation 22.01\",\r\n    \"assignedstage\": 1,\r\n    \"description\": \"das ist ein Test\",\r\n    \"remainingworkload\": 10,\r\n    \"tasktype\": 1,\r\n    \"priority\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update specific Task field RabbitMQ",
 							"request": {
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=2&fieldname=taskName&value=new",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=8&fieldname=taskName&value=Achim",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks",
+										"update"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "8"
+										},
+										{
+											"key": "fieldname",
+											"value": "taskName"
+										},
+										{
+											"key": "value",
+											"value": "Achim"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update specific Task field Kafka",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=2&fieldname=taskName&value=new&communicationType=kafka",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -137,6 +175,10 @@
 										{
 											"key": "value",
 											"value": "new"
+										},
+										{
+											"key": "communicationType",
+											"value": "kafka"
 										}
 									]
 								}
@@ -144,7 +186,7 @@
 							"response": []
 						},
 						{
-							"name": "Update Task Stage",
+							"name": "Update Task Stage RabbitMQ",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -165,6 +207,38 @@
 										{
 											"key": "stageId",
 											"value": "99"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Task Stage Kafka",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=99&communicationType=kafka",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"kanbanboard_management",
+										"tasks",
+										"2",
+										"stage"
+									],
+									"query": [
+										{
+											"key": "stageId",
+											"value": "99"
+										},
+										{
+											"key": "communicationType",
+											"value": "kafka"
 										}
 									]
 								}
@@ -272,6 +346,31 @@
 								{
 									"key": "name",
 									"value": "Gerd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/send?message=32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"send"
+							],
+							"query": [
+								{
+									"key": "message",
+									"value": "32"
 								}
 							]
 						}
