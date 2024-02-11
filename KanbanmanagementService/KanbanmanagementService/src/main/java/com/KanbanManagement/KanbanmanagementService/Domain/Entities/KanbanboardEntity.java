@@ -4,8 +4,6 @@ import java.sql.Date;
 
 import org.springframework.data.annotation.Id;
 
-
-
 public class KanbanboardEntity {
 	@Id
 	int id;

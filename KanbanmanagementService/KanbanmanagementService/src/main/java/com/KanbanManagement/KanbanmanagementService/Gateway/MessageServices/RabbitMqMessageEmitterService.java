@@ -12,7 +12,6 @@ public class RabbitMqMessageEmitterService implements IMessageEmitterService {
 	private static final String EXCHANGE_NAME = "task_update_exchange";	
 	
 	public void sendMessage(TaskReportData messageTaskObject) {
-
 	    ConnectionFactory factory = new ConnectionFactory();
 	    factory.setHost("localhost");
 	    try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {

@@ -1,6 +1,5 @@
 package com.KanbanReporting.KanbanReportingService.Domain.ValueObjects;
 
-
 public class KanbanDashboardId {
 	int id;
 
