@@ -1,5 +1,26 @@
 MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
 ============== 
+
+- [MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban](#mwi-104-fortgeschrittene-softwareentwicklung-projekt-gruppe-2-kanban)
+- [Einführung](#einführung)
+- [Hinweise zur Verwendung des Repositories](#hinweise-zur-verwendung-des-repositories)
+  - [Start der beiden Microservices *(... und was noch dazugehört)*](#start-der-beiden-microservices--und-was-noch-dazugehört)
+  - [Notwendige Konfigurationsschritte](#notwendige-konfigurationsschritte)
+    - [Konfiguration von RabbitMQ](#konfiguration-von-rabbitmq)
+    - [Konfiguration von Kafka](#konfiguration-von-kafka)
+    - [Konfiguration der H2-Datenbanken](#konfiguration-der-h2-datenbanken)
+      - [Anlage (zweiter) Datenbank](#anlage-zweiter-datenbank)
+      - [Initalisierung der Datenstrukturen und Daten](#initalisierung-der-datenstrukturen-und-daten)
+      - [Anpassung der Application.Properties](#anpassung-der-applicationproperties)
+    - [Import Rest-Anfragen via Postman Collection](#import-rest-anfragen-via-postman-collection)
+    - [(Optional) Anpassung des Server Ports (nicht empfohlen)](#optional-anpassung-des-server-ports-nicht-empfohlen)
+  - [Notwendige Installationen](#notwendige-installationen)
+    - [Installation der Java SDK (17) und Maven](#installation-der-java-sdk-17-und-maven)
+    - [Installation von RabbitMQ](#installation-von-rabbitmq)
+    - [Installation von Kafka](#installation-von-kafka)
+    - [Installation der H2 Datenbank](#installation-der-h2-datenbank)
+    - [Installation von Postman (optional)](#installation-von-postman-optional)
+
 # Einführung
 Das vorliegende GitHub Repository ist die Projektbearbeitung der Gruppe 2 im Kurs MWI 104 Fortgeschrittene Softwareentwicklung mit der Themenstellung Kanban. Es handelt sich hierbei und zwei Microservices, die einen geeigneten Kontext abbilden und hier mittels Spring-Boot implementiert sind. Dabei nutzen sie verschiedenste Elemente aus der Veranstaltung, wie RabbitMQ und Kafka, Paradigmen der Softwarearchitektur (wie die Onion-Architektur, Ports and Adapter..) sowie Unit Tests.
 
