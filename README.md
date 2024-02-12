@@ -1,7 +1,9 @@
 MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
 ============== 
 
+# Inhaltsverzeichnis
 - [MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban](#mwi-104-fortgeschrittene-softwareentwicklung-projekt-gruppe-2-kanban)
+- [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Einführung](#einführung)
 - [Hinweise zur Verwendung des Repositories](#hinweise-zur-verwendung-des-repositories)
   - [Start der beiden Microservices *(... und was noch dazugehört)*](#start-der-beiden-microservices--und-was-noch-dazugehört)
