@@ -35,12 +35,12 @@ public class BeanConfiguration {
 	 }
 	 
 	 @Bean 
-	 IMessageEmitterRabbitMqService rabbitMqMessageEmitterService() {
+	 RabbitMqMessageEmitterService rabbitMqMessageEmitterService() {
 		 return new RabbitMqMessageEmitterService();
 	 }
 	 
 	 @Bean
-	 IMessageEmitterKafkaService kafkaMessageEmitterService() {
+	 KafkaMessageEmitterService kafkaMessageEmitterService() {
 		 return new KafkaMessageEmitterService();
 	 }
 	 

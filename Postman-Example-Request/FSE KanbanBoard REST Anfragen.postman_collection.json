@@ -38,7 +38,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/8",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -47,7 +47,7 @@
 									"path": [
 										"kanbanboard_management",
 										"tasks",
-										"8"
+										"3"
 									]
 								}
 							},
@@ -89,7 +89,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Abschlusspräsentation 22.01\",\r\n    \"assignedstage\": 1,\r\n    \"description\": \"das ist ein Test\",\r\n    \"remainingworkload\": 10,\r\n    \"tasktype\": 1,\r\n    \"priority\": 2\r\n}",
+									"raw": "{\r\n    \"name\": \"Abschlusspräsentation 22.01\",\r\n    \"assignedstage\": 1,\r\n    \"description\": \"das ist ein Test 2\",\r\n    \"remainingworkload\": 10,\r\n    \"tasktype\": 1,\r\n    \"priority\": 2\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -97,7 +97,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks?communicationType=kafka",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -106,6 +106,12 @@
 									"path": [
 										"kanbanboard_management",
 										"tasks"
+									],
+									"query": [
+										{
+											"key": "communicationType",
+											"value": "kafka"
+										}
 									]
 								}
 							},
@@ -117,7 +123,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=8&fieldname=taskName&value=Achim",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/update?id=2&fieldname=taskName&value=testTaskName",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -131,7 +137,7 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "8"
+											"value": "2"
 										},
 										{
 											"key": "fieldname",
@@ -139,7 +145,7 @@
 										},
 										{
 											"key": "value",
-											"value": "Achim"
+											"value": "testTaskName"
 										}
 									]
 								}
@@ -219,7 +225,7 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=99&communicationType=kafka",
+									"raw": "http://localhost:8080/kanbanboard_management/tasks/2/stage?stageId=1&communicationType=kafka",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -234,7 +240,7 @@
 									"query": [
 										{
 											"key": "stageId",
-											"value": "99"
+											"value": "1"
 										},
 										{
 											"key": "communicationType",
@@ -297,7 +303,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/kanbanboard_management/stages?name=In Testing&position=5&kanbanid=1",
+									"raw": "http://localhost:8080/kanbanboard_management/stages?name=Testing&position=3&kanbanid=1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -310,11 +316,11 @@
 									"query": [
 										{
 											"key": "name",
-											"value": "In Testing"
+											"value": "Testing"
 										},
 										{
 											"key": "position",
-											"value": "5"
+											"value": "3"
 										},
 										{
 											"key": "kanbanid",
@@ -351,31 +357,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Test",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/send?message=32",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"send"
-							],
-							"query": [
-								{
-									"key": "message",
-									"value": "32"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -383,58 +364,12 @@
 			"name": "KanbanReportingService",
 			"item": [
 				{
-					"name": "Obsolete: Testrequest",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/kanbanboard_reporting/hello?name=Joachim",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"kanbanboard_reporting",
-								"hello"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "Joachim"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obsolete: RabbitMQ Test",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/kanbanboard_management/raiseNotification",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"kanbanboard_management",
-								"raiseNotification"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get Taskreport by Id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/kanbanboard_reporting/taskreport/1",
+							"raw": "http://localhost:8081/kanbanboard_reporting/taskreport/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -443,7 +378,7 @@
 							"path": [
 								"kanbanboard_reporting",
 								"taskreport",
-								"1"
+								"2"
 							]
 						}
 					},
