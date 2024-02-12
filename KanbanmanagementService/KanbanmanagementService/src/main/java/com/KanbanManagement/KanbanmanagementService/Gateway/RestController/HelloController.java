@@ -21,15 +21,15 @@ public class HelloController {
 		return String.format("Hello %s!", name);
 	}
 	
-	// Test for kafka communication
-    @Autowired
-    private KafkaMessageEmitterService messageProducer;
-
-    @PostMapping("/send")
-    public String sendMessage(@RequestParam("message") String message) {
-    	
-        messageProducer.sendMessage("my-topic", message);
-        System.out.println("Message sent: " + message);
-        return "Message sent: " + message;
-    }
+//	// Test for kafka communication
+//    @Autowired
+//    private KafkaMessageEmitterService messageProducer;
+//
+//    @PostMapping("/send")
+//    public String sendMessage(@RequestParam("message") String message) {
+//    	
+//        messageProducer.sendMessage("my-topic", message);
+//        System.out.println("Message sent: " + message);
+//        return "Message sent: " + message;
+//    }
 }

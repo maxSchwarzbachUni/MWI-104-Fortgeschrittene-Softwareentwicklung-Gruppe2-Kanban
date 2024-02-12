@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 // https://www.baeldung.com/spring-kafka
 // https://github.com/spring-projects/spring-kafka/tree/main/samples
 
-@Component
-public class KafkaMessageEmitterService implements IMessageEmitterService {
+//@Component
+public class KafkaMessageEmitterService implements IMessageEmitterKafkaService {
 	@Autowired(required=false)
     private KafkaTemplate<String, String> kafkaTemplate;
 	private static final String topic = "task_update";	

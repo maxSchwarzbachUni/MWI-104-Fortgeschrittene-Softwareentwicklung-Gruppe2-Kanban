@@ -7,6 +7,8 @@ import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.StageD
 import com.KanbanManagement.KanbanmanagementService.Domain.DomainServices.TaskmanagementDomainService;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.StageFactory;
 import com.KanbanManagement.KanbanmanagementService.Domain.Factories.TaskFactory;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.IMessageEmitterKafkaService;
+import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.IMessageEmitterRabbitMqService;
 import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.KafkaMessageEmitterService;
 import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.RabbitMqMessageEmitterService;
 import com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices.TaskNotificationEmitterService;
@@ -33,12 +35,12 @@ public class BeanConfiguration {
 	 }
 	 
 	 @Bean 
-	 RabbitMqMessageEmitterService rabbitMqMessageEmitterService() {
+	 IMessageEmitterRabbitMqService rabbitMqMessageEmitterService() {
 		 return new RabbitMqMessageEmitterService();
 	 }
 	 
 	 @Bean
-	 KafkaMessageEmitterService kafkaMessageEmitterService() {
+	 IMessageEmitterKafkaService kafkaMessageEmitterService() {
 		 return new KafkaMessageEmitterService();
 	 }
 	 

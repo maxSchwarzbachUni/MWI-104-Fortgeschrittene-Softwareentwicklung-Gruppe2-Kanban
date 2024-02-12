@@ -85,7 +85,7 @@ public class TaskmanagementDomainService {
 			return new DomainResult(true, null, HttpStatus.OK);
 		}
 		else if(!descriptionIsValid) {
-			return new DomainResult(false, "Description Feld ist nicht gültig, da zu lang (Limit 255 Zeichen", HttpStatus.BAD_REQUEST);
+			return new DomainResult(false, "Description Feld ist nicht gültig, da zu lang (Limit 255 Zeichen)", HttpStatus.BAD_REQUEST);
 		}
 		else {
 			return new DomainResult(false, "RemainingWorkload Feld ist keine gültige Zahl (sie muss größer 0 sein)", HttpStatus.BAD_REQUEST);

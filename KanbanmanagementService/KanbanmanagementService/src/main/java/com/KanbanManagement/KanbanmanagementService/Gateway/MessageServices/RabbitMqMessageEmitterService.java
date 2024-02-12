@@ -7,7 +7,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 // RabbitMQ Coding in Anlehnung an: https://www.rabbitmq.com/tutorials/tutorial-five-java.html
-public class RabbitMqMessageEmitterService implements IMessageEmitterService {
+public class RabbitMqMessageEmitterService implements IMessageEmitterRabbitMqService {
 
 	private static final String EXCHANGE_NAME = "task_update_exchange";	
 	

@@ -3,10 +3,10 @@ package com.KanbanManagement.KanbanmanagementService.Gateway.MessageServices;
 import com.KanbanManagement.KanbanmanagementService.Domain.Aggregates.TaskReportData;
 
 public class TaskNotificationEmitterService {
-	RabbitMqMessageEmitterService rabbitMqMessageEmitterService;
-	KafkaMessageEmitterService kafkaMessageEmitterService;
+	IMessageEmitterRabbitMqService rabbitMqMessageEmitterService;
+	IMessageEmitterKafkaService kafkaMessageEmitterService;
 	
-	public TaskNotificationEmitterService(RabbitMqMessageEmitterService rabbitMqMessageEmitterService, KafkaMessageEmitterService kafkaMessageEmitterService) {
+	public TaskNotificationEmitterService(IMessageEmitterRabbitMqService rabbitMqMessageEmitterService, IMessageEmitterKafkaService kafkaMessageEmitterService) {
 		this.kafkaMessageEmitterService = kafkaMessageEmitterService;
 		this.rabbitMqMessageEmitterService = rabbitMqMessageEmitterService;
 	}
