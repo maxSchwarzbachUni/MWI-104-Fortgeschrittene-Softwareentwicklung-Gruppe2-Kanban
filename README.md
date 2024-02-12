@@ -8,6 +8,9 @@ MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
 - [Einführung](#einführung)
 - [Hinweise zur Verwendung des Repositories](#hinweise-zur-verwendung-des-repositories)
   - [Start der beiden Microservices *(... und was noch dazugehört)*](#start-der-beiden-microservices--und-was-noch-dazugehört)
+    - [**H2-Datenbank**](#h2-datenbank)
+    - [**Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)](#kafka-hier-am-beispiel-von-zookeeper-achtung-reihenfolge-wichtig)
+    - [Start der **Microservices** (Reihenfolge nicht relevant)](#start-der-microservices-reihenfolge-nicht-relevant)
   - [Notwendige Konfigurationsschritte](#notwendige-konfigurationsschritte)
     - [Konfiguration von RabbitMQ](#konfiguration-von-rabbitmq)
     - [Konfiguration von Kafka](#konfiguration-von-kafka)
@@ -24,6 +27,7 @@ MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
     - [Installation der H2 Datenbank](#installation-der-h2-datenbank)
     - [Installation von Postman (optional)](#installation-von-postman-optional)
 
+
 # Einführung
 Das vorliegende GitHub Repository ist die Projektbearbeitung der Gruppe 2 im Kurs MWI 104 Fortgeschrittene Softwareentwicklung mit der Themenstellung Kanban. Es handelt sich hierbei und zwei Microservices, die einen geeigneten Kontext abbilden und hier mittels Spring-Boot implementiert sind. Dabei nutzen sie verschiedenste Elemente aus der Veranstaltung, wie RabbitMQ und Kafka, Paradigmen der Softwarearchitektur (wie die Onion-Architektur, Ports and Adapter..) sowie Unit Tests.
 
@@ -38,37 +42,38 @@ In diesem Kapitel werden die notwendigen Konfigurations-, Installations- und Sta
 
 Nachfolgend eine einfache Auflistung der "Dinge", die "gestartet" werden müssen, wobei hier die Microservices zuletzt gestartet werden sollten.
 
-- **H2-Datenbank** (Sollte automatisch durch die Dienste gestartet werden, wenn nicht, dann [*java -jar h2*.jar, h2.bat, oder h2.sh*](https://www.h2database.com/html/cheatSheet.html#:~:text=To%20start%20the%20H2%20Console,an%20embedded%20URL%20is%20used.) ausführen)
+### **H2-Datenbank** 
+(Sollte automatisch durch die Dienste gestartet werden, wenn nicht, dann [*java -jar h2*.jar, h2.bat, oder h2.sh*](https://www.h2database.com/html/cheatSheet.html#:~:text=To%20start%20the%20H2%20Console,an%20embedded%20URL%20is%20used.) ausführen)
 - **RabbitMQ** (Sollte auch automatisch gestartet werden, sonst [rabbitmq-server start -detached](https://stackoverflow.com/questions/47242282/how-do-i-start-a-rabbitmq-node) oder via Windows Verknüpfung im Startmenü von Windows (siehe Bild))
 ![RabbitMQ Windows Verknüpfung](./ReadMe_Bilder/RabbitMQ_Verknuepfungen.jpg)
-* **Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
+### **Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
     
-    1. Kommandozeile im Kafka Installationsverzeichnis starten (bspw. C:\kafka)
-    2. Folgenden Command zum Starten von Zookeeper:
-    ```
-    .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
-    ```
-    3. Folgenden Command zum Starten von Kafka:
-    ```
-    .\bin\windows\kafka-server-start.bat .\config\server.properties
-    ```
+  1. Kommandozeile im Kafka Installationsverzeichnis starten (bspw. C:\kafka)
+  2. Folgenden Command zum Starten von Zookeeper:
+  ```
+  .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+  ```
+  1. Folgenden Command zum Starten von Kafka:
+  ```
+  .\bin\windows\kafka-server-start.bat .\config\server.properties
+  ```
 
-* Start der **Microservices** (Reihenfolge nicht relevant)
-    
-    * Kommandozeile im Projektverzeichnis starten und folgenden Command ausführen ([Quelle](https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-running-your-application.html)):
-    ```
-    mvn spring-boot:run
-    ```
-    
-    * Achtung: Das Projektverzeichnis sind die Verzeichnisse, in welchen sich die pom.xml befindet, also:
-    ```
-    .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanmanagementService\KanbanmanagementService
-    ```
-    für den **KanbanmanagementService** und 
-    ```
-    .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanReportingService\KanbanReportingService
-    ```
-    für den **KanbanReportingService**.
+### Start der **Microservices** (Reihenfolge nicht relevant) 
+ * Kommandozeile im Projektverzeichnis starten und folgenden Command ausführen ([Quelle](https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-running-your-application.html)):
+
+ ```
+ mvn spring-boot:run
+ ```
+ 
+ * Achtung: Das Projektverzeichnis sind die Verzeichnisse, in welchen sich die pom.xml befindet, also:
+ ```
+ .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanmanagementService\KanbanmanagementService
+ ```
+ für den **KanbanmanagementService** und 
+ ```
+ .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanReportingService\KanbanReportingService
+ ```
+ für den **KanbanReportingService**.
 
 
 Daraufhin können die Dienste verwendet werden, hierzu kann Postman und die Collection herangezogen werden, in welcher bereits vordefinierte Rest-Anfragen für die Endpoints der beiden Microservices vorliegen, die auch direkt mit den initialen Daten funktionieren.
