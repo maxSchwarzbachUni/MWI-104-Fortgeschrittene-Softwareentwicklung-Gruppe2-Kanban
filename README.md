@@ -1,5 +1,6 @@
 MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
 ============== 
+*Gerne diese Datei (**README.md**) direkt im Dateibaum auswählen und anschauen, da dort mehr Text in einer Zeile dargestellt werden kann, ist möglicherweise übersichtlicher.*
 
 # Inhaltsverzeichnis
 - [MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban](#mwi-104-fortgeschrittene-softwareentwicklung-projekt-gruppe-2-kanban)
