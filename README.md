@@ -35,12 +35,12 @@ In diesem Kapitel werden die notwendigen Konfigurations-, Installations und Star
 
 ## Start der beiden Microservices *(... und was noch dazugehört)* 
 
-Nachfolgend eine einfache Auflistung der "Dinge", die gestartet werden müssen, wobei hier die Microservices zuletzt gestartet werden sollten.
+Nachfolgend eine einfache Auflistung der "Dinge", die "gestartet" werden müssen, wobei hier die Microservices zuletzt gestartet werden sollten.
 
-- H2-Datenbank (Sollte automatisch durch die Dienste gestartet werden, wenn nicht, dann [*java -jar h2*.jar, h2.bat, oder h2.sh*](https://www.h2database.com/html/cheatSheet.html#:~:text=To%20start%20the%20H2%20Console,an%20embedded%20URL%20is%20used.) ausführen)
-- RabbitMQ (Sollte auch automatisch gestartet werden, sonst [rabbitmq-server start -detached](https://stackoverflow.com/questions/47242282/how-do-i-start-a-rabbitmq-node) oder via Windows Verknüpfung im Startmenü von Windows (siehe Bild))
+- **H2-Datenbank** (Sollte automatisch durch die Dienste gestartet werden, wenn nicht, dann [*java -jar h2*.jar, h2.bat, oder h2.sh*](https://www.h2database.com/html/cheatSheet.html#:~:text=To%20start%20the%20H2%20Console,an%20embedded%20URL%20is%20used.) ausführen)
+- **RabbitMQ** (Sollte auch automatisch gestartet werden, sonst [rabbitmq-server start -detached](https://stackoverflow.com/questions/47242282/how-do-i-start-a-rabbitmq-node) oder via Windows Verknüpfung im Startmenü von Windows (siehe Bild))
 ![RabbitMQ Windows Verknüpfung](./ReadMe_Bilder/RabbitMQ_Verknuepfungen.jpg)
-* Kafka (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
+* **Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
     
     1. Kommandozeile im Kafka Installationsverzeichnis starten (bspw. C:\kafka)
     2. Folgenden Command zum starten von Zookeeper:
@@ -52,7 +52,7 @@ Nachfolgend eine einfache Auflistung der "Dinge", die gestartet werden müssen, 
     .\bin\windows\kafka-server-start.bat .\config\server.properties
     ```
 
-* Start der Microservices (Reihenfolge nicht relevant)
+* Start der **Microservices** (Reihenfolge nicht relevant)
     
     * Kommandozeile im Projektverzeichnis starten und folgenden Command ausführen ([Quelle](https://docs.spring.io/spring-boot/docs/1.5.16.RELEASE/reference/html/using-boot-running-your-application.html)):
     ```
@@ -63,11 +63,11 @@ Nachfolgend eine einfache Auflistung der "Dinge", die gestartet werden müssen, 
     ```
     .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanmanagementService\KanbanmanagementService
     ```
-    für den KanbanmanagementService und 
+    für den **KanbanmanagementService** und 
     ```
     .\MWI-104-Fortgeschrittene-Softwareentwicklung-Gruppe2-Kanban\KanbanReportingService\KanbanReportingService
     ```
-    für den KanbanReportingService.
+    für den **KanbanReportingService**.
 
 
 Daraufhin können die Dienste verwendet werden, hierzu kann Postman und die Collection herangezogen werden, in welcher bereits vordefinierte Rest-Anfragen für die Endpoints der beiden Microservices vorliegen, die auch direkt mit den initialen Daten funktionieren.
