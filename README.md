@@ -148,7 +148,7 @@ server.port=8081
 * * * * * * * * * *
 
 ## Notwendige Installationen
-Im Nachfolgeneden werden die notwendigen Frameworks und Programme beschrieben, die für das Verwenden des Projektes notwendig sind. Hier wird jedoch nicht in Detail erklärt, wie eine Installation durchgeführt wird.
+Im Nachfolgenden werden die notwendigen Frameworks und Programme beschrieben, die für das Verwenden des Projektes notwendig sind. Hier wird jedoch nicht in Detail erklärt, wie eine Installation durchgeführt wird.
 
 ### Installation der Java SDK (17) und Maven
 Eine Installation der Java SDK (hier konkret JDK-Version 17) ist notwendig, bspw. unter dem nachfolgenden Link zu finden: 
