@@ -13,7 +13,7 @@ MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
     - [Konfiguration von Kafka](#konfiguration-von-kafka)
     - [Konfiguration der H2-Datenbanken](#konfiguration-der-h2-datenbanken)
       - [Anlage (zweiter) Datenbank](#anlage-zweiter-datenbank)
-      - [Initalisierung der Datenstrukturen und Daten](#initalisierung-der-datenstrukturen-und-daten)
+      - [Initialisierung der Datenstrukturen und Daten](#initialisierung-der-datenstrukturen-und-daten)
       - [Anpassung der Application.Properties](#anpassung-der-applicationproperties)
     - [Import Rest-Anfragen via Postman Collection](#import-rest-anfragen-via-postman-collection)
     - [(Optional) Anpassung des Server Ports (nicht empfohlen)](#optional-anpassung-des-server-ports-nicht-empfohlen)
@@ -32,7 +32,7 @@ Im Nachfolgenden werden ein paar Hinweise Verwendung des Repositories gegeben, h
 **Bei Fragen gerne an die Autoren des Repositories wenden oder über einen Kommentar GitHub-Projekt.**
 
 # Hinweise zur Verwendung des Repositories
-In diesem Kapitel werden die notwendigen Konfigurations-, Installations und Startschritte sowie das Testing beschrieben, um das Projekt zu verwenden. Hierbei wurde die Installation (obwohl sie im logischen Ablauf zuerst durchgeführt werden sollte) zuletzt aufgeführt, da Konfigurationsschritte sowie Startanwenisungen zum einfachen wiederfinden direkt vorangehend besser sind.  
+In diesem Kapitel werden die notwendigen Konfigurations-, Installations und Startschritte sowie das Testing beschrieben, um das Projekt zu verwenden. Hierbei wurde die Installation (obwohl sie im logischen Ablauf zuerst durchgeführt werden sollte) zuletzt aufgeführt, da Konfigurationsschritte sowie Startanwenisungen zum einfachen Wiederfinden  direkt vorangehend besser sind.  
 
 ## Start der beiden Microservices *(... und was noch dazugehört)* 
 
@@ -44,11 +44,11 @@ Nachfolgend eine einfache Auflistung der "Dinge", die "gestartet" werden müssen
 * **Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
     
     1. Kommandozeile im Kafka Installationsverzeichnis starten (bspw. C:\kafka)
-    2. Folgenden Command zum starten von Zookeeper:
+    2. Folgenden Command zum Starten von Zookeeper:
     ```
     .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
     ```
-    3. Folgenden Command zum starten von Kafka:
+    3. Folgenden Command zum Starten von Kafka:
     ```
     .\bin\windows\kafka-server-start.bat .\config\server.properties
     ```
@@ -98,7 +98,7 @@ Da beide Microservices in den Projekten eine eigene Datenbank benötigen (um als
 #### Anlage (zweiter) Datenbank
 Eine Anleitung zur Anlage einer neuen Datenbank findet sich im Verzeichnis **.\Commands\AnlageZweiterDatenbank.md**
 
-#### Initalisierung der Datenstrukturen und Daten
+#### Initialisierung der Datenstrukturen und Daten
 Zusätzlich müssen hier die SQL-Installationsskripte in den beiden Datenbanken ausgeführt werden, um die Datenstrukturen sowie initiale Daten zu schaffen. Hierfür wurde für jeden Dienst ein individuelles Skript geschrieben, welches in der zugehörigen Datenbank ausgeführt werden soll-
 
 Im Folgenden die Ausführung, welches Skript welcher Dienst benötigt und in der entsprechenden Datenbank ausgeführt werden soll:
@@ -107,7 +107,7 @@ Im Folgenden die Ausführung, welches Skript welcher Dienst benötigt und in der
 - KanbanboardReportingService: **"./SQL Skripte/Init Skript KanbanReportingService.sql"**
 
 Diese müssen in der H2 Konsole ausgeführt werden. **Achtung: Es werden hierbei Testdatensätze angelegt, wenn diese nicht gewünscht sind, müssen entsprechende *Insert*-Befehle auskommentiert werden.** 
-Die Skripte wurden so entworfen, dass sie mehrfach ausgeführt werden können ohne zum Absturz zu führen. Also kann ein bereits bestehender Datenbestand auch überschrieben werden (um einen initialen Zustand wiederherzustellen).
+Die Skripte wurden so entworfen, dass sie mehrfach ausgeführt werden können, ohne zum Absturz zu führen. Also kann ein bereits bestehender Datenbestand auch überschrieben werden (um einen initialen Zustand wiederherzustellen).
 
 #### Anpassung der Application.Properties
 Zuletzt sind die **application.properties** beider Projekte (src/main/resources/application.properties) anzupassen, sodass sie auf die Datenbanken zugreifen können. Hier sind die folgenden Felder zu konfigurieren, 
@@ -120,19 +120,19 @@ spring.datasource.password=sa
 ```
 
 ### Import Rest-Anfragen via Postman Collection
-Um die Microservices und deren Funktion zu testen wurde eine Postman-Collection angelegt, die für alle Rest-Endpoints bereits Requests vorbereitet enthält, sodass ein Testen der Anwendung schnell und verständlich möglich ist (sowie das Anpassen von Rest-Anfragen). 
+Um die Microservices und deren Funktion zu testen, wurde eine Postman-Collection angelegt, die für alle Rest-Endpoints bereits Requests vorbereitet enthält, sodass ein Testen der Anwendung schnell und verständlich möglich ist (sowie das Anpassen von Rest-Anfragen). 
 
 Hierfür den Import Button (oben links) wählen und die Postman .json Datei (.\Postman-Example-Request\FSE KanbanBoard REST Anfragen.postman_collection.json) auswählen/einfügen. Dabei wird automatisch die nachfolgende Kollektion eingeladen, welche dann die Beispiel-Anfragen enthält, die mittels "Send" dann an den Server gesendet werden.
 
 ![Übersicht der Postman-Collection](./ReadMe_Bilder/Postman_Collection_Uebersicht.jpg)
 
-Alternativ können Restanfragen auch über Curl oder Insomnia oder andere Tools gestellt werden, hierfür wurde nur keine Vorlage bereitgestellt. Alternativ HTTP-Get Anfragen könenn auch über den Browser gestellt werden, CORS wurde nicht so konfiguriert, das Browser-Anfragen abgelehnt werden. Beispiel hierfür:
+Alternativ können Restanfragen auch über Curl oder Insomnia oder andere Tools gestellt werden, hierfür wurde nur keine Vorlage bereitgestellt. Alternativ HTTP-Get Anfragen können auch über den Browser gestellt werden, CORS wurde nicht so konfiguriert, das Browser-Anfragen abgelehnt werden. Beispiel hierfür:
 ```
 http://localhost:8080/kanbanboard_management/tasks
 ```
 
 ### (Optional) Anpassung des Server Ports (nicht empfohlen)
-Optional kann es notwendig sein den Server Port anzupassen der beiden Microservices, da sie vielleicht bereits in Vewendung sind. Dies muss in den **application.properties** beider Projekte (src/main/resources/application.properties) angepasst werden in dem nachfolgenden Feld:
+Optional kann es notwendig sein den Server Port anzupassen der beiden Microservices, da sie vielleicht bereits in Verwendung sind. Dies muss in den **application.properties** beider Projekte (src/main/resources/application.properties) angepasst werden in dem nachfolgenden Feld:
 ```
 server.port=8081
 ```
@@ -142,7 +142,7 @@ server.port=8081
 * * * * * * * * * *
 
 ## Notwendige Installationen
-Im Nachfolgeneden werden die notwendigen Frameworks und Programme beschrieben, die für das Verwenden des Projektes notnwedig sind. Hier wird jedoch nicht in Detail erklärt, wie eine Installation durchgeführt wird.
+Im Nachfolgeneden werden die notwendigen Frameworks und Programme beschrieben, die für das Verwenden des Projektes notwendig sind. Hier wird jedoch nicht in Detail erklärt, wie eine Installation durchgeführt wird.
 
 ### Installation der Java SDK (17) und Maven
 Eine Installation der Java SDK (hier konkret JDK-Version 17) ist notwendig, bspw. unter dem nachfolgenden Link zu finden: 
