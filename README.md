@@ -32,7 +32,7 @@ Im Nachfolgenden werden ein paar Hinweise Verwendung des Repositories gegeben, h
 **Bei Fragen gerne an die Autoren des Repositories wenden oder über einen Kommentar GitHub-Projekt.**
 
 # Hinweise zur Verwendung des Repositories
-In diesem Kapitel werden die notwendigen Konfigurations-, Installations und Startschritte sowie das Testing beschrieben, um das Projekt zu verwenden. Hierbei wurde die Installation (obwohl sie im logischen Ablauf zuerst durchgeführt werden sollte) zuletzt aufgeführt, da Konfigurationsschritte sowie Startanwenisungen zum einfachen Wiederfinden  direkt vorangehend besser sind.  
+In diesem Kapitel werden die notwendigen Konfigurations-, Installations- und Startschritte sowie das Testing beschrieben, um das Projekt zu verwenden. Hierbei wurde die Installation (obwohl sie im logischen Ablauf zuerst durchgeführt werden sollte) zuletzt aufgeführt, da Konfigurationsschritte sowie Startanweisungen zum einfachen Wiederfinden  direkt vorangehend besser sind.  
 
 ## Start der beiden Microservices *(... und was noch dazugehört)* 
 
@@ -73,7 +73,7 @@ Nachfolgend eine einfache Auflistung der "Dinge", die "gestartet" werden müssen
 
 Daraufhin können die Dienste verwendet werden, hierzu kann Postman und die Collection herangezogen werden, in welcher bereits vordefinierte Rest-Anfragen für die Endpoints der beiden Microservices vorliegen, die auch direkt mit den initialen Daten funktionieren.
 
-Hinweis für das Testen: Das Logging des Ablaufs ist an kritischen Stellen ausführlicher gewählt worden, um über die Console schnell und einfach nachvollziehen zu können, was in dem jeweiligen Dienst passiert. 
+Hinweis für das Testen: Das Logging des Ablaufs ist an kritischen Stellen ausführlicher gewählt worden, um über die Konsole schnell und einfach nachvollziehen zu können, was in dem jeweiligen Dienst passiert. 
 
 * * * * * * * * * *
 ## Notwendige Konfigurationsschritte
