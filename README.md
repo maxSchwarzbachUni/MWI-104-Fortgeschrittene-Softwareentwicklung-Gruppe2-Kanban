@@ -3,12 +3,11 @@ MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
 *Gerne diese Datei (**README.md**) direkt im Dateibaum auswählen und anschauen, da dort mehr Text in einer Zeile dargestellt werden kann, ist möglicherweise übersichtlicher.*
 
 # Inhaltsverzeichnis
-- [MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban](#mwi-104-fortgeschrittene-softwareentwicklung-projekt-gruppe-2-kanban)
-- [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [Einführung](#einführung)
 - [Hinweise zur Verwendung des Repositories](#hinweise-zur-verwendung-des-repositories)
   - [Start der beiden Microservices *(... und was noch dazugehört)*](#start-der-beiden-microservices--und-was-noch-dazugehört)
     - [**H2-Datenbank**](#h2-datenbank)
+    - [**RabbitMQ**](#rabbitmq)
     - [**Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)](#kafka-hier-am-beispiel-von-zookeeper-achtung-reihenfolge-wichtig)
     - [Start der **Microservices** (Reihenfolge nicht relevant)](#start-der-microservices-reihenfolge-nicht-relevant)
   - [Notwendige Konfigurationsschritte](#notwendige-konfigurationsschritte)
@@ -28,6 +27,7 @@ MWI 104 Fortgeschrittene Softwareentwicklung: Projekt Gruppe 2 Kanban
     - [Installation von Postman (optional)](#installation-von-postman-optional)
 
 
+
 # Einführung
 Das vorliegende GitHub Repository ist die Projektbearbeitung der Gruppe 2 im Kurs MWI 104 Fortgeschrittene Softwareentwicklung mit der Themenstellung Kanban. Es handelt sich hierbei und zwei Microservices, die einen geeigneten Kontext abbilden und hier mittels Spring-Boot implementiert sind. Dabei nutzen sie verschiedenste Elemente aus der Veranstaltung, wie RabbitMQ und Kafka, Paradigmen der Softwarearchitektur (wie die Onion-Architektur, Ports and Adapter..) sowie Unit Tests.
 
@@ -44,7 +44,8 @@ Nachfolgend eine einfache Auflistung der "Dinge", die "gestartet" werden müssen
 
 ### **H2-Datenbank** 
 (Sollte automatisch durch die Dienste gestartet werden, wenn nicht, dann [*java -jar h2*.jar, h2.bat, oder h2.sh*](https://www.h2database.com/html/cheatSheet.html#:~:text=To%20start%20the%20H2%20Console,an%20embedded%20URL%20is%20used.) ausführen)
-- **RabbitMQ** (Sollte auch automatisch gestartet werden, sonst [rabbitmq-server start -detached](https://stackoverflow.com/questions/47242282/how-do-i-start-a-rabbitmq-node) oder via Windows Verknüpfung im Startmenü von Windows (siehe Bild))
+### **RabbitMQ** 
+(Sollte auch automatisch gestartet werden, sonst [rabbitmq-server start -detached](https://stackoverflow.com/questions/47242282/how-do-i-start-a-rabbitmq-node) oder via Windows Verknüpfung im Startmenü von Windows (siehe Bild))
 ![RabbitMQ Windows Verknüpfung](./ReadMe_Bilder/RabbitMQ_Verknuepfungen.jpg)
 ### **Kafka** (hier am Beispiel von Zookeeper, Achtung Reihenfolge wichtig!)
     
